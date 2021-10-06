@@ -20,7 +20,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_CANVAS_PART_MAIN for screen6_HELP_canvas_white
 	static lv_style_t style_screen6_HELP_canvas_white_main;
-	lv_style_init(&style_screen6_HELP_canvas_white_main);
+	lv_style_reset(&style_screen6_HELP_canvas_white_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_canvas_white_main
 	lv_style_set_image_recolor(&style_screen6_HELP_canvas_white_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -36,13 +36,18 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen6_HELP_left_btn
 	static lv_style_t style_screen6_HELP_left_btn_main;
-	lv_style_init(&style_screen6_HELP_left_btn_main);
+	lv_style_reset(&style_screen6_HELP_left_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_left_btn_main
 	lv_style_set_text_color(&style_screen6_HELP_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen6_HELP_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen6_HELP_left_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen6_HELP_left_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen6_HELP_left_btn_main
+	lv_style_set_text_color(&style_screen6_HELP_left_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen6_HELP_left_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen6_HELP_left_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen6_HELP_left_btn, LV_IMGBTN_PART_MAIN, &style_screen6_HELP_left_btn_main);
 	lv_obj_set_pos(ui->screen6_HELP_left_btn, 44, 1100);
 	lv_obj_set_size(ui->screen6_HELP_left_btn, 132, 132);
@@ -57,7 +62,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_left_label
 	static lv_style_t style_screen6_HELP_left_label_main;
-	lv_style_init(&style_screen6_HELP_left_label_main);
+	lv_style_reset(&style_screen6_HELP_left_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_left_label_main
 	lv_style_set_radius(&style_screen6_HELP_left_label_main, LV_STATE_DEFAULT, 0);
@@ -81,7 +86,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen6_HELP_avlogoimg0
 	static lv_style_t style_screen6_HELP_avlogoimg0_main;
-	lv_style_init(&style_screen6_HELP_avlogoimg0_main);
+	lv_style_reset(&style_screen6_HELP_avlogoimg0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_avlogoimg0_main
 	lv_style_set_image_recolor(&style_screen6_HELP_avlogoimg0_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -100,13 +105,18 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen6_HELP_right_btn
 	static lv_style_t style_screen6_HELP_right_btn_main;
-	lv_style_init(&style_screen6_HELP_right_btn_main);
+	lv_style_reset(&style_screen6_HELP_right_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_right_btn_main
 	lv_style_set_text_color(&style_screen6_HELP_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen6_HELP_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen6_HELP_right_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen6_HELP_right_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen6_HELP_right_btn_main
+	lv_style_set_text_color(&style_screen6_HELP_right_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen6_HELP_right_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen6_HELP_right_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen6_HELP_right_btn, LV_IMGBTN_PART_MAIN, &style_screen6_HELP_right_btn_main);
 	lv_obj_set_pos(ui->screen6_HELP_right_btn, 544, 1100);
 	lv_obj_set_size(ui->screen6_HELP_right_btn, 132, 132);
@@ -121,7 +131,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_right_label
 	static lv_style_t style_screen6_HELP_right_label_main;
-	lv_style_init(&style_screen6_HELP_right_label_main);
+	lv_style_reset(&style_screen6_HELP_right_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_right_label_main
 	lv_style_set_radius(&style_screen6_HELP_right_label_main, LV_STATE_DEFAULT, 0);
@@ -145,13 +155,18 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen6_HELP_home_btn
 	static lv_style_t style_screen6_HELP_home_btn_main;
-	lv_style_init(&style_screen6_HELP_home_btn_main);
+	lv_style_reset(&style_screen6_HELP_home_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_home_btn_main
 	lv_style_set_text_color(&style_screen6_HELP_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen6_HELP_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen6_HELP_home_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen6_HELP_home_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen6_HELP_home_btn_main
+	lv_style_set_text_color(&style_screen6_HELP_home_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen6_HELP_home_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen6_HELP_home_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen6_HELP_home_btn, LV_IMGBTN_PART_MAIN, &style_screen6_HELP_home_btn_main);
 	lv_obj_set_pos(ui->screen6_HELP_home_btn, 294, 1100);
 	lv_obj_set_size(ui->screen6_HELP_home_btn, 132, 132);
@@ -166,7 +181,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_page_label
 	static lv_style_t style_screen6_HELP_page_label_main;
-	lv_style_init(&style_screen6_HELP_page_label_main);
+	lv_style_reset(&style_screen6_HELP_page_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_page_label_main
 	lv_style_set_radius(&style_screen6_HELP_page_label_main, LV_STATE_DEFAULT, 0);
@@ -193,7 +208,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_demo_label
 	static lv_style_t style_screen6_HELP_demo_label_main;
-	lv_style_init(&style_screen6_HELP_demo_label_main);
+	lv_style_reset(&style_screen6_HELP_demo_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_demo_label_main
 	lv_style_set_radius(&style_screen6_HELP_demo_label_main, LV_STATE_DEFAULT, 0);
@@ -220,7 +235,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_1
 	static lv_style_t style_screen6_HELP_label_1_main;
-	lv_style_init(&style_screen6_HELP_label_1_main);
+	lv_style_reset(&style_screen6_HELP_label_1_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_1_main
 	lv_style_set_radius(&style_screen6_HELP_label_1_main, LV_STATE_DEFAULT, 0);
@@ -247,7 +262,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_2
 	static lv_style_t style_screen6_HELP_label_2_main;
-	lv_style_init(&style_screen6_HELP_label_2_main);
+	lv_style_reset(&style_screen6_HELP_label_2_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_2_main
 	lv_style_set_radius(&style_screen6_HELP_label_2_main, LV_STATE_DEFAULT, 0);
@@ -274,7 +289,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_3
 	static lv_style_t style_screen6_HELP_label_3_main;
-	lv_style_init(&style_screen6_HELP_label_3_main);
+	lv_style_reset(&style_screen6_HELP_label_3_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_3_main
 	lv_style_set_radius(&style_screen6_HELP_label_3_main, LV_STATE_DEFAULT, 0);
@@ -301,7 +316,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_4
 	static lv_style_t style_screen6_HELP_label_4_main;
-	lv_style_init(&style_screen6_HELP_label_4_main);
+	lv_style_reset(&style_screen6_HELP_label_4_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_4_main
 	lv_style_set_radius(&style_screen6_HELP_label_4_main, LV_STATE_DEFAULT, 0);
@@ -328,7 +343,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_5
 	static lv_style_t style_screen6_HELP_label_5_main;
-	lv_style_init(&style_screen6_HELP_label_5_main);
+	lv_style_reset(&style_screen6_HELP_label_5_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_5_main
 	lv_style_set_radius(&style_screen6_HELP_label_5_main, LV_STATE_DEFAULT, 0);
@@ -355,7 +370,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_6
 	static lv_style_t style_screen6_HELP_label_6_main;
-	lv_style_init(&style_screen6_HELP_label_6_main);
+	lv_style_reset(&style_screen6_HELP_label_6_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_6_main
 	lv_style_set_radius(&style_screen6_HELP_label_6_main, LV_STATE_DEFAULT, 0);
@@ -382,7 +397,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_7
 	static lv_style_t style_screen6_HELP_label_7_main;
-	lv_style_init(&style_screen6_HELP_label_7_main);
+	lv_style_reset(&style_screen6_HELP_label_7_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_7_main
 	lv_style_set_radius(&style_screen6_HELP_label_7_main, LV_STATE_DEFAULT, 0);
@@ -409,7 +424,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_8
 	static lv_style_t style_screen6_HELP_label_8_main;
-	lv_style_init(&style_screen6_HELP_label_8_main);
+	lv_style_reset(&style_screen6_HELP_label_8_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_8_main
 	lv_style_set_radius(&style_screen6_HELP_label_8_main, LV_STATE_DEFAULT, 0);
@@ -436,7 +451,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_9
 	static lv_style_t style_screen6_HELP_label_9_main;
-	lv_style_init(&style_screen6_HELP_label_9_main);
+	lv_style_reset(&style_screen6_HELP_label_9_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_9_main
 	lv_style_set_radius(&style_screen6_HELP_label_9_main, LV_STATE_DEFAULT, 0);
@@ -463,7 +478,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_10
 	static lv_style_t style_screen6_HELP_label_10_main;
-	lv_style_init(&style_screen6_HELP_label_10_main);
+	lv_style_reset(&style_screen6_HELP_label_10_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_10_main
 	lv_style_set_radius(&style_screen6_HELP_label_10_main, LV_STATE_DEFAULT, 0);
@@ -490,7 +505,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_11
 	static lv_style_t style_screen6_HELP_label_11_main;
-	lv_style_init(&style_screen6_HELP_label_11_main);
+	lv_style_reset(&style_screen6_HELP_label_11_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_11_main
 	lv_style_set_radius(&style_screen6_HELP_label_11_main, LV_STATE_DEFAULT, 0);
@@ -517,7 +532,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_label_12
 	static lv_style_t style_screen6_HELP_label_12_main;
-	lv_style_init(&style_screen6_HELP_label_12_main);
+	lv_style_reset(&style_screen6_HELP_label_12_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_label_12_main
 	lv_style_set_radius(&style_screen6_HELP_label_12_main, LV_STATE_DEFAULT, 0);
@@ -544,7 +559,7 @@ void setup_scr_screen6_HELP(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen6_HELP_maaxboard_version_label
 	static lv_style_t style_screen6_HELP_maaxboard_version_label_main;
-	lv_style_init(&style_screen6_HELP_maaxboard_version_label_main);
+	lv_style_reset(&style_screen6_HELP_maaxboard_version_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen6_HELP_maaxboard_version_label_main
 	lv_style_set_radius(&style_screen6_HELP_maaxboard_version_label_main, LV_STATE_DEFAULT, 0);

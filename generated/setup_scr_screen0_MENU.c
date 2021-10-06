@@ -20,7 +20,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen0_MENU_cursor_img
 	static lv_style_t style_screen0_MENU_cursor_img_main;
-	lv_style_init(&style_screen0_MENU_cursor_img_main);
+	lv_style_reset(&style_screen0_MENU_cursor_img_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_cursor_img_main
 	lv_style_set_image_recolor(&style_screen0_MENU_cursor_img_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -39,7 +39,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_CANVAS_PART_MAIN for screen0_MENU_canvas_white
 	static lv_style_t style_screen0_MENU_canvas_white_main;
-	lv_style_init(&style_screen0_MENU_canvas_white_main);
+	lv_style_reset(&style_screen0_MENU_canvas_white_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_canvas_white_main
 	lv_style_set_image_recolor(&style_screen0_MENU_canvas_white_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -55,7 +55,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen0_MENU_avlogoimg0
 	static lv_style_t style_screen0_MENU_avlogoimg0_main;
-	lv_style_init(&style_screen0_MENU_avlogoimg0_main);
+	lv_style_reset(&style_screen0_MENU_avlogoimg0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_avlogoimg0_main
 	lv_style_set_image_recolor(&style_screen0_MENU_avlogoimg0_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -74,7 +74,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen0_MENU_board_img
 	static lv_style_t style_screen0_MENU_board_img_main;
-	lv_style_init(&style_screen0_MENU_board_img_main);
+	lv_style_reset(&style_screen0_MENU_board_img_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_board_img_main
 	lv_style_set_image_recolor(&style_screen0_MENU_board_img_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -96,7 +96,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen0_MENU_page_label
 	static lv_style_t style_screen0_MENU_page_label_main;
-	lv_style_init(&style_screen0_MENU_page_label_main);
+	lv_style_reset(&style_screen0_MENU_page_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_page_label_main
 	lv_style_set_radius(&style_screen0_MENU_page_label_main, LV_STATE_DEFAULT, 0);
@@ -123,7 +123,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen0_MENU_label_1
 	static lv_style_t style_screen0_MENU_label_1_main;
-	lv_style_init(&style_screen0_MENU_label_1_main);
+	lv_style_reset(&style_screen0_MENU_label_1_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_label_1_main
 	lv_style_set_radius(&style_screen0_MENU_label_1_main, LV_STATE_DEFAULT, 0);
@@ -147,7 +147,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen0_MENU_imgbtn_1
 	static lv_style_t style_screen0_MENU_imgbtn_1_main;
-	lv_style_init(&style_screen0_MENU_imgbtn_1_main);
+	lv_style_reset(&style_screen0_MENU_imgbtn_1_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_imgbtn_1_main
 	lv_style_set_text_color(&style_screen0_MENU_imgbtn_1_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -155,6 +155,12 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_1_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_1_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen0_MENU_imgbtn_1_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen0_MENU_imgbtn_1_main
+	lv_style_set_text_color(&style_screen0_MENU_imgbtn_1_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen0_MENU_imgbtn_1_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_1_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_1_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen0_MENU_imgbtn_1, LV_IMGBTN_PART_MAIN, &style_screen0_MENU_imgbtn_1_main);
 	lv_obj_set_pos(ui->screen0_MENU_imgbtn_1, 30, 890);
 	lv_obj_set_size(ui->screen0_MENU_imgbtn_1, 320, 106);
@@ -169,7 +175,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen0_MENU_imgbtn_2
 	static lv_style_t style_screen0_MENU_imgbtn_2_main;
-	lv_style_init(&style_screen0_MENU_imgbtn_2_main);
+	lv_style_reset(&style_screen0_MENU_imgbtn_2_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_imgbtn_2_main
 	lv_style_set_text_color(&style_screen0_MENU_imgbtn_2_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -177,6 +183,12 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_2_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_2_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen0_MENU_imgbtn_2_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen0_MENU_imgbtn_2_main
+	lv_style_set_text_color(&style_screen0_MENU_imgbtn_2_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen0_MENU_imgbtn_2_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_2_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_2_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen0_MENU_imgbtn_2, LV_IMGBTN_PART_MAIN, &style_screen0_MENU_imgbtn_2_main);
 	lv_obj_set_pos(ui->screen0_MENU_imgbtn_2, 370, 890);
 	lv_obj_set_size(ui->screen0_MENU_imgbtn_2, 320, 106);
@@ -191,7 +203,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen0_MENU_imgbtn_3
 	static lv_style_t style_screen0_MENU_imgbtn_3_main;
-	lv_style_init(&style_screen0_MENU_imgbtn_3_main);
+	lv_style_reset(&style_screen0_MENU_imgbtn_3_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_imgbtn_3_main
 	lv_style_set_text_color(&style_screen0_MENU_imgbtn_3_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -199,6 +211,12 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_3_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_3_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen0_MENU_imgbtn_3_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen0_MENU_imgbtn_3_main
+	lv_style_set_text_color(&style_screen0_MENU_imgbtn_3_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen0_MENU_imgbtn_3_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_3_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_3_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen0_MENU_imgbtn_3, LV_IMGBTN_PART_MAIN, &style_screen0_MENU_imgbtn_3_main);
 	lv_obj_set_pos(ui->screen0_MENU_imgbtn_3, 30, 1015);
 	lv_obj_set_size(ui->screen0_MENU_imgbtn_3, 320, 106);
@@ -213,7 +231,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen0_MENU_imgbtn_4
 	static lv_style_t style_screen0_MENU_imgbtn_4_main;
-	lv_style_init(&style_screen0_MENU_imgbtn_4_main);
+	lv_style_reset(&style_screen0_MENU_imgbtn_4_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_imgbtn_4_main
 	lv_style_set_text_color(&style_screen0_MENU_imgbtn_4_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -221,6 +239,12 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_4_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_4_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen0_MENU_imgbtn_4_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen0_MENU_imgbtn_4_main
+	lv_style_set_text_color(&style_screen0_MENU_imgbtn_4_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen0_MENU_imgbtn_4_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_4_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_4_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen0_MENU_imgbtn_4, LV_IMGBTN_PART_MAIN, &style_screen0_MENU_imgbtn_4_main);
 	lv_obj_set_pos(ui->screen0_MENU_imgbtn_4, 370, 1015);
 	lv_obj_set_size(ui->screen0_MENU_imgbtn_4, 320, 106);
@@ -235,7 +259,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen0_MENU_imgbtn_5
 	static lv_style_t style_screen0_MENU_imgbtn_5_main;
-	lv_style_init(&style_screen0_MENU_imgbtn_5_main);
+	lv_style_reset(&style_screen0_MENU_imgbtn_5_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_imgbtn_5_main
 	lv_style_set_text_color(&style_screen0_MENU_imgbtn_5_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -243,6 +267,12 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_5_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_5_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen0_MENU_imgbtn_5_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen0_MENU_imgbtn_5_main
+	lv_style_set_text_color(&style_screen0_MENU_imgbtn_5_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen0_MENU_imgbtn_5_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_5_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_5_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen0_MENU_imgbtn_5, LV_IMGBTN_PART_MAIN, &style_screen0_MENU_imgbtn_5_main);
 	lv_obj_set_pos(ui->screen0_MENU_imgbtn_5, 30, 1140);
 	lv_obj_set_size(ui->screen0_MENU_imgbtn_5, 320, 106);
@@ -257,7 +287,7 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen0_MENU_imgbtn_6
 	static lv_style_t style_screen0_MENU_imgbtn_6_main;
-	lv_style_init(&style_screen0_MENU_imgbtn_6_main);
+	lv_style_reset(&style_screen0_MENU_imgbtn_6_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen0_MENU_imgbtn_6_main
 	lv_style_set_text_color(&style_screen0_MENU_imgbtn_6_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -265,6 +295,12 @@ void setup_scr_screen0_MENU(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_6_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_6_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen0_MENU_imgbtn_6_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen0_MENU_imgbtn_6_main
+	lv_style_set_text_color(&style_screen0_MENU_imgbtn_6_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen0_MENU_imgbtn_6_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen0_MENU_imgbtn_6_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen0_MENU_imgbtn_6_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen0_MENU_imgbtn_6, LV_IMGBTN_PART_MAIN, &style_screen0_MENU_imgbtn_6_main);
 	lv_obj_set_pos(ui->screen0_MENU_imgbtn_6, 370, 1140);
 	lv_obj_set_size(ui->screen0_MENU_imgbtn_6, 320, 106);

@@ -20,7 +20,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_CANVAS_PART_MAIN for screen5_SYSTEM_canvas_white
 	static lv_style_t style_screen5_SYSTEM_canvas_white_main;
-	lv_style_init(&style_screen5_SYSTEM_canvas_white_main);
+	lv_style_reset(&style_screen5_SYSTEM_canvas_white_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_canvas_white_main
 	lv_style_set_image_recolor(&style_screen5_SYSTEM_canvas_white_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -36,13 +36,18 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen5_SYSTEM_left_btn
 	static lv_style_t style_screen5_SYSTEM_left_btn_main;
-	lv_style_init(&style_screen5_SYSTEM_left_btn_main);
+	lv_style_reset(&style_screen5_SYSTEM_left_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_left_btn_main
 	lv_style_set_text_color(&style_screen5_SYSTEM_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen5_SYSTEM_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_left_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen5_SYSTEM_left_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen5_SYSTEM_left_btn_main
+	lv_style_set_text_color(&style_screen5_SYSTEM_left_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen5_SYSTEM_left_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_left_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen5_SYSTEM_left_btn, LV_IMGBTN_PART_MAIN, &style_screen5_SYSTEM_left_btn_main);
 	lv_obj_set_pos(ui->screen5_SYSTEM_left_btn, 44, 1100);
 	lv_obj_set_size(ui->screen5_SYSTEM_left_btn, 132, 132);
@@ -57,7 +62,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen5_SYSTEM_left_label
 	static lv_style_t style_screen5_SYSTEM_left_label_main;
-	lv_style_init(&style_screen5_SYSTEM_left_label_main);
+	lv_style_reset(&style_screen5_SYSTEM_left_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_left_label_main
 	lv_style_set_radius(&style_screen5_SYSTEM_left_label_main, LV_STATE_DEFAULT, 0);
@@ -81,7 +86,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen5_SYSTEM_avlogoimg0
 	static lv_style_t style_screen5_SYSTEM_avlogoimg0_main;
-	lv_style_init(&style_screen5_SYSTEM_avlogoimg0_main);
+	lv_style_reset(&style_screen5_SYSTEM_avlogoimg0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_avlogoimg0_main
 	lv_style_set_image_recolor(&style_screen5_SYSTEM_avlogoimg0_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -100,13 +105,18 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen5_SYSTEM_right_btn
 	static lv_style_t style_screen5_SYSTEM_right_btn_main;
-	lv_style_init(&style_screen5_SYSTEM_right_btn_main);
+	lv_style_reset(&style_screen5_SYSTEM_right_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_right_btn_main
 	lv_style_set_text_color(&style_screen5_SYSTEM_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen5_SYSTEM_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_right_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen5_SYSTEM_right_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen5_SYSTEM_right_btn_main
+	lv_style_set_text_color(&style_screen5_SYSTEM_right_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen5_SYSTEM_right_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_right_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen5_SYSTEM_right_btn, LV_IMGBTN_PART_MAIN, &style_screen5_SYSTEM_right_btn_main);
 	lv_obj_set_pos(ui->screen5_SYSTEM_right_btn, 544, 1100);
 	lv_obj_set_size(ui->screen5_SYSTEM_right_btn, 132, 132);
@@ -121,7 +131,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen5_SYSTEM_right_label
 	static lv_style_t style_screen5_SYSTEM_right_label_main;
-	lv_style_init(&style_screen5_SYSTEM_right_label_main);
+	lv_style_reset(&style_screen5_SYSTEM_right_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_right_label_main
 	lv_style_set_radius(&style_screen5_SYSTEM_right_label_main, LV_STATE_DEFAULT, 0);
@@ -145,13 +155,18 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen5_SYSTEM_home_btn
 	static lv_style_t style_screen5_SYSTEM_home_btn_main;
-	lv_style_init(&style_screen5_SYSTEM_home_btn_main);
+	lv_style_reset(&style_screen5_SYSTEM_home_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_home_btn_main
 	lv_style_set_text_color(&style_screen5_SYSTEM_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen5_SYSTEM_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_home_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen5_SYSTEM_home_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen5_SYSTEM_home_btn_main
+	lv_style_set_text_color(&style_screen5_SYSTEM_home_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen5_SYSTEM_home_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_home_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen5_SYSTEM_home_btn, LV_IMGBTN_PART_MAIN, &style_screen5_SYSTEM_home_btn_main);
 	lv_obj_set_pos(ui->screen5_SYSTEM_home_btn, 294, 1100);
 	lv_obj_set_size(ui->screen5_SYSTEM_home_btn, 132, 132);
@@ -166,7 +181,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen5_SYSTEM_page_label
 	static lv_style_t style_screen5_SYSTEM_page_label_main;
-	lv_style_init(&style_screen5_SYSTEM_page_label_main);
+	lv_style_reset(&style_screen5_SYSTEM_page_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_page_label_main
 	lv_style_set_radius(&style_screen5_SYSTEM_page_label_main, LV_STATE_DEFAULT, 0);
@@ -190,7 +205,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_CHART_PART_BG for screen5_SYSTEM_custom_chart
 	static lv_style_t style_screen5_SYSTEM_custom_chart_bg;
-	lv_style_init(&style_screen5_SYSTEM_custom_chart_bg);
+	lv_style_reset(&style_screen5_SYSTEM_custom_chart_bg);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_custom_chart_bg
 	lv_style_set_bg_color(&style_screen5_SYSTEM_custom_chart_bg, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -205,7 +220,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_CHART_PART_SERIES_BG for screen5_SYSTEM_custom_chart
 	static lv_style_t style_screen5_SYSTEM_custom_chart_series_bg;
-	lv_style_init(&style_screen5_SYSTEM_custom_chart_series_bg);
+	lv_style_reset(&style_screen5_SYSTEM_custom_chart_series_bg);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_custom_chart_series_bg
 	lv_style_set_line_color(&style_screen5_SYSTEM_custom_chart_series_bg, LV_STATE_DEFAULT, lv_color_make(0xe8, 0xe8, 0xe8));
@@ -226,7 +241,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen5_SYSTEM_custom_label
 	static lv_style_t style_screen5_SYSTEM_custom_label_main;
-	lv_style_init(&style_screen5_SYSTEM_custom_label_main);
+	lv_style_reset(&style_screen5_SYSTEM_custom_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_custom_label_main
 	lv_style_set_radius(&style_screen5_SYSTEM_custom_label_main, LV_STATE_DEFAULT, 0);
@@ -250,7 +265,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen5_SYSTEM_custom_imgbtn
 	static lv_style_t style_screen5_SYSTEM_custom_imgbtn_main;
-	lv_style_init(&style_screen5_SYSTEM_custom_imgbtn_main);
+	lv_style_reset(&style_screen5_SYSTEM_custom_imgbtn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_custom_imgbtn_main
 	lv_style_set_text_color(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -258,6 +273,12 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen5_SYSTEM_custom_imgbtn_main
+	lv_style_set_text_color(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen5_SYSTEM_custom_imgbtn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen5_SYSTEM_custom_imgbtn, LV_IMGBTN_PART_MAIN, &style_screen5_SYSTEM_custom_imgbtn_main);
 	lv_obj_set_pos(ui->screen5_SYSTEM_custom_imgbtn, 29, 610);
 	lv_obj_set_size(ui->screen5_SYSTEM_custom_imgbtn, 220, 80);
@@ -277,7 +298,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen5_SYSTEM_instructions_label
 	static lv_style_t style_screen5_SYSTEM_instructions_label_main;
-	lv_style_init(&style_screen5_SYSTEM_instructions_label_main);
+	lv_style_reset(&style_screen5_SYSTEM_instructions_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_instructions_label_main
 	lv_style_set_radius(&style_screen5_SYSTEM_instructions_label_main, LV_STATE_DEFAULT, 0);
@@ -304,7 +325,7 @@ void setup_scr_screen5_SYSTEM(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen5_SYSTEM_custom_value_label
 	static lv_style_t style_screen5_SYSTEM_custom_value_label_main;
-	lv_style_init(&style_screen5_SYSTEM_custom_value_label_main);
+	lv_style_reset(&style_screen5_SYSTEM_custom_value_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen5_SYSTEM_custom_value_label_main
 	lv_style_set_radius(&style_screen5_SYSTEM_custom_value_label_main, LV_STATE_DEFAULT, 0);

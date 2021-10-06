@@ -20,7 +20,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_CANVAS_PART_MAIN for screen2_WIFI_canvas_white
 	static lv_style_t style_screen2_WIFI_canvas_white_main;
-	lv_style_init(&style_screen2_WIFI_canvas_white_main);
+	lv_style_reset(&style_screen2_WIFI_canvas_white_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_canvas_white_main
 	lv_style_set_image_recolor(&style_screen2_WIFI_canvas_white_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -36,13 +36,18 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen2_WIFI_left_btn
 	static lv_style_t style_screen2_WIFI_left_btn_main;
-	lv_style_init(&style_screen2_WIFI_left_btn_main);
+	lv_style_reset(&style_screen2_WIFI_left_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_left_btn_main
 	lv_style_set_text_color(&style_screen2_WIFI_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen2_WIFI_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen2_WIFI_left_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen2_WIFI_left_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen2_WIFI_left_btn_main
+	lv_style_set_text_color(&style_screen2_WIFI_left_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen2_WIFI_left_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen2_WIFI_left_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen2_WIFI_left_btn, LV_IMGBTN_PART_MAIN, &style_screen2_WIFI_left_btn_main);
 	lv_obj_set_pos(ui->screen2_WIFI_left_btn, 44, 1100);
 	lv_obj_set_size(ui->screen2_WIFI_left_btn, 132, 132);
@@ -57,7 +62,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen2_WIFI_left_label
 	static lv_style_t style_screen2_WIFI_left_label_main;
-	lv_style_init(&style_screen2_WIFI_left_label_main);
+	lv_style_reset(&style_screen2_WIFI_left_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_left_label_main
 	lv_style_set_radius(&style_screen2_WIFI_left_label_main, LV_STATE_DEFAULT, 0);
@@ -81,7 +86,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen2_WIFI_avlogoimg0
 	static lv_style_t style_screen2_WIFI_avlogoimg0_main;
-	lv_style_init(&style_screen2_WIFI_avlogoimg0_main);
+	lv_style_reset(&style_screen2_WIFI_avlogoimg0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_avlogoimg0_main
 	lv_style_set_image_recolor(&style_screen2_WIFI_avlogoimg0_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -100,13 +105,18 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen2_WIFI_right_btn
 	static lv_style_t style_screen2_WIFI_right_btn_main;
-	lv_style_init(&style_screen2_WIFI_right_btn_main);
+	lv_style_reset(&style_screen2_WIFI_right_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_right_btn_main
 	lv_style_set_text_color(&style_screen2_WIFI_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen2_WIFI_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen2_WIFI_right_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen2_WIFI_right_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen2_WIFI_right_btn_main
+	lv_style_set_text_color(&style_screen2_WIFI_right_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen2_WIFI_right_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen2_WIFI_right_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen2_WIFI_right_btn, LV_IMGBTN_PART_MAIN, &style_screen2_WIFI_right_btn_main);
 	lv_obj_set_pos(ui->screen2_WIFI_right_btn, 544, 1100);
 	lv_obj_set_size(ui->screen2_WIFI_right_btn, 132, 132);
@@ -121,7 +131,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen2_WIFI_right_label
 	static lv_style_t style_screen2_WIFI_right_label_main;
-	lv_style_init(&style_screen2_WIFI_right_label_main);
+	lv_style_reset(&style_screen2_WIFI_right_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_right_label_main
 	lv_style_set_radius(&style_screen2_WIFI_right_label_main, LV_STATE_DEFAULT, 0);
@@ -145,13 +155,18 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen2_WIFI_home_btn
 	static lv_style_t style_screen2_WIFI_home_btn_main;
-	lv_style_init(&style_screen2_WIFI_home_btn_main);
+	lv_style_reset(&style_screen2_WIFI_home_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_home_btn_main
 	lv_style_set_text_color(&style_screen2_WIFI_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen2_WIFI_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen2_WIFI_home_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen2_WIFI_home_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen2_WIFI_home_btn_main
+	lv_style_set_text_color(&style_screen2_WIFI_home_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen2_WIFI_home_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen2_WIFI_home_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen2_WIFI_home_btn, LV_IMGBTN_PART_MAIN, &style_screen2_WIFI_home_btn_main);
 	lv_obj_set_pos(ui->screen2_WIFI_home_btn, 294, 1100);
 	lv_obj_set_size(ui->screen2_WIFI_home_btn, 132, 132);
@@ -166,7 +181,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen2_WIFI_page_label
 	static lv_style_t style_screen2_WIFI_page_label_main;
-	lv_style_init(&style_screen2_WIFI_page_label_main);
+	lv_style_reset(&style_screen2_WIFI_page_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_page_label_main
 	lv_style_set_radius(&style_screen2_WIFI_page_label_main, LV_STATE_DEFAULT, 0);
@@ -191,7 +206,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LIST_PART_BG for screen2_WIFI_ssid_list
 	static lv_style_t style_screen2_WIFI_ssid_list_bg;
-	lv_style_init(&style_screen2_WIFI_ssid_list_bg);
+	lv_style_reset(&style_screen2_WIFI_ssid_list_bg);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_ssid_list_bg
 	lv_style_set_radius(&style_screen2_WIFI_ssid_list_bg, LV_STATE_DEFAULT, 3);
@@ -204,7 +219,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LIST_PART_SCROLLABLE for screen2_WIFI_ssid_list
 	static lv_style_t style_screen2_WIFI_ssid_list_scrollable;
-	lv_style_init(&style_screen2_WIFI_ssid_list_scrollable);
+	lv_style_reset(&style_screen2_WIFI_ssid_list_scrollable);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_ssid_list_scrollable
 	lv_style_set_radius(&style_screen2_WIFI_ssid_list_scrollable, LV_STATE_DEFAULT, 3);
@@ -216,7 +231,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_BTN_PART_MAIN for screen2_WIFI_ssid_list
 	static lv_style_t style_screen2_WIFI_ssid_list_main_child;
-	lv_style_init(&style_screen2_WIFI_ssid_list_main_child);
+	lv_style_reset(&style_screen2_WIFI_ssid_list_main_child);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_ssid_list_main_child
 	lv_style_set_radius(&style_screen2_WIFI_ssid_list_main_child, LV_STATE_DEFAULT, 3);
@@ -225,10 +240,12 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 	lv_style_set_bg_grad_dir(&style_screen2_WIFI_ssid_list_main_child, LV_STATE_DEFAULT, LV_GRAD_DIR_VER);
 	lv_style_set_bg_opa(&style_screen2_WIFI_ssid_list_main_child, LV_STATE_DEFAULT, 255);
 	lv_style_set_text_color(&style_screen2_WIFI_ssid_list_main_child, LV_STATE_DEFAULT, lv_color_make(0x0D, 0x30, 0x55));
+	lv_style_set_text_font(&style_screen2_WIFI_ssid_list_main_child, LV_STATE_DEFAULT, &lv_font_simsun_12);
 	lv_obj_set_pos(ui->screen2_WIFI_ssid_list, 0, 240);
 	lv_obj_set_size(ui->screen2_WIFI_ssid_list, 720, 550);
 	lv_obj_t *screen2_WIFI_ssid_list_btn;
 	screen2_WIFI_ssid_list_btn = lv_list_add_btn(ui->screen2_WIFI_ssid_list, LV_SYMBOL_WIFI, "entry");
+	ui->screen2_WIFI_ssid_list_item0 = screen2_WIFI_ssid_list_btn;
 	lv_obj_add_style(screen2_WIFI_ssid_list_btn, LV_BTN_PART_MAIN, &style_screen2_WIFI_ssid_list_main_child);
 
 	//Write codes screen2_WIFI_ssid_label
@@ -239,7 +256,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen2_WIFI_ssid_label
 	static lv_style_t style_screen2_WIFI_ssid_label_main;
-	lv_style_init(&style_screen2_WIFI_ssid_label_main);
+	lv_style_reset(&style_screen2_WIFI_ssid_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_ssid_label_main
 	lv_style_set_radius(&style_screen2_WIFI_ssid_label_main, LV_STATE_DEFAULT, 0);
@@ -266,7 +283,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen2_WIFI_ip_addr_label
 	static lv_style_t style_screen2_WIFI_ip_addr_label_main;
-	lv_style_init(&style_screen2_WIFI_ip_addr_label_main);
+	lv_style_reset(&style_screen2_WIFI_ip_addr_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_ip_addr_label_main
 	lv_style_set_radius(&style_screen2_WIFI_ip_addr_label_main, LV_STATE_DEFAULT, 0);
@@ -293,7 +310,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen2_WIFI_font_label
 	static lv_style_t style_screen2_WIFI_font_label_main;
-	lv_style_init(&style_screen2_WIFI_font_label_main);
+	lv_style_reset(&style_screen2_WIFI_font_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_font_label_main
 	lv_style_set_radius(&style_screen2_WIFI_font_label_main, LV_STATE_DEFAULT, 0);
@@ -316,7 +333,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen2_WIFI_ssid_refresh_imgbtn
 	static lv_style_t style_screen2_WIFI_ssid_refresh_imgbtn_main;
-	lv_style_init(&style_screen2_WIFI_ssid_refresh_imgbtn_main);
+	lv_style_reset(&style_screen2_WIFI_ssid_refresh_imgbtn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_ssid_refresh_imgbtn_main
 	lv_style_set_text_color(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -324,6 +341,12 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 	lv_style_set_image_recolor(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen2_WIFI_ssid_refresh_imgbtn_main
+	lv_style_set_text_color(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_text_font(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_CHECKED, &lv_font_simsun_16);
+	lv_style_set_image_recolor(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen2_WIFI_ssid_refresh_imgbtn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen2_WIFI_ssid_refresh_imgbtn, LV_IMGBTN_PART_MAIN, &style_screen2_WIFI_ssid_refresh_imgbtn_main);
 	lv_obj_set_pos(ui->screen2_WIFI_ssid_refresh_imgbtn, 530, 176);
 	lv_obj_set_size(ui->screen2_WIFI_ssid_refresh_imgbtn, 160, 50);
@@ -340,7 +363,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen2_WIFI_ssid_scan_label
 	static lv_style_t style_screen2_WIFI_ssid_scan_label_main;
-	lv_style_init(&style_screen2_WIFI_ssid_scan_label_main);
+	lv_style_reset(&style_screen2_WIFI_ssid_scan_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_ssid_scan_label_main
 	lv_style_set_radius(&style_screen2_WIFI_ssid_scan_label_main, LV_STATE_DEFAULT, 0);
@@ -365,7 +388,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LIST_PART_BG for screen2_WIFI_eth_list
 	static lv_style_t style_screen2_WIFI_eth_list_bg;
-	lv_style_init(&style_screen2_WIFI_eth_list_bg);
+	lv_style_reset(&style_screen2_WIFI_eth_list_bg);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_eth_list_bg
 	lv_style_set_radius(&style_screen2_WIFI_eth_list_bg, LV_STATE_DEFAULT, 3);
@@ -378,7 +401,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_LIST_PART_SCROLLABLE for screen2_WIFI_eth_list
 	static lv_style_t style_screen2_WIFI_eth_list_scrollable;
-	lv_style_init(&style_screen2_WIFI_eth_list_scrollable);
+	lv_style_reset(&style_screen2_WIFI_eth_list_scrollable);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_eth_list_scrollable
 	lv_style_set_radius(&style_screen2_WIFI_eth_list_scrollable, LV_STATE_DEFAULT, 3);
@@ -390,7 +413,7 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 
 	//Write style LV_BTN_PART_MAIN for screen2_WIFI_eth_list
 	static lv_style_t style_screen2_WIFI_eth_list_main_child;
-	lv_style_init(&style_screen2_WIFI_eth_list_main_child);
+	lv_style_reset(&style_screen2_WIFI_eth_list_main_child);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen2_WIFI_eth_list_main_child
 	lv_style_set_radius(&style_screen2_WIFI_eth_list_main_child, LV_STATE_DEFAULT, 3);
@@ -399,12 +422,15 @@ void setup_scr_screen2_WIFI(lv_ui *ui){
 	lv_style_set_bg_grad_dir(&style_screen2_WIFI_eth_list_main_child, LV_STATE_DEFAULT, LV_GRAD_DIR_VER);
 	lv_style_set_bg_opa(&style_screen2_WIFI_eth_list_main_child, LV_STATE_DEFAULT, 255);
 	lv_style_set_text_color(&style_screen2_WIFI_eth_list_main_child, LV_STATE_DEFAULT, lv_color_make(0x0d, 0x30, 0x55));
+	lv_style_set_text_font(&style_screen2_WIFI_eth_list_main_child, LV_STATE_DEFAULT, &lv_font_simsun_12);
 	lv_obj_set_pos(ui->screen2_WIFI_eth_list, 0, 903);
 	lv_obj_set_size(ui->screen2_WIFI_eth_list, 720, 180);
 	lv_obj_t *screen2_WIFI_eth_list_btn;
 	screen2_WIFI_eth_list_btn = lv_list_add_btn(ui->screen2_WIFI_eth_list, &_eth_connect_40x40, "Eth 100Mb : Connected, ip:192.168.5.100 sub:255.255.255.0 gw:192.168.5.1");
+	ui->screen2_WIFI_eth_list_item0 = screen2_WIFI_eth_list_btn;
 	lv_obj_add_style(screen2_WIFI_eth_list_btn, LV_BTN_PART_MAIN, &style_screen2_WIFI_eth_list_main_child);
 	screen2_WIFI_eth_list_btn = lv_list_add_btn(ui->screen2_WIFI_eth_list, &_eth_disconnect_40x40, "Eth 1Gb : Disconnected");
+	ui->screen2_WIFI_eth_list_item1 = screen2_WIFI_eth_list_btn;
 	lv_obj_add_style(screen2_WIFI_eth_list_btn, LV_BTN_PART_MAIN, &style_screen2_WIFI_eth_list_main_child);
 
 	//Init events for screen

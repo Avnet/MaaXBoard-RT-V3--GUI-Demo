@@ -20,7 +20,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_CANVAS_PART_MAIN for screen1_LEDs_canvas_white
 	static lv_style_t style_screen1_LEDs_canvas_white_main;
-	lv_style_init(&style_screen1_LEDs_canvas_white_main);
+	lv_style_reset(&style_screen1_LEDs_canvas_white_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_canvas_white_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_canvas_white_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -36,13 +36,18 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen1_LEDs_left_btn
 	static lv_style_t style_screen1_LEDs_left_btn_main;
-	lv_style_init(&style_screen1_LEDs_left_btn_main);
+	lv_style_reset(&style_screen1_LEDs_left_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_left_btn_main
 	lv_style_set_text_color(&style_screen1_LEDs_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen1_LEDs_left_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen1_LEDs_left_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen1_LEDs_left_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen1_LEDs_left_btn_main
+	lv_style_set_text_color(&style_screen1_LEDs_left_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen1_LEDs_left_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen1_LEDs_left_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen1_LEDs_left_btn, LV_IMGBTN_PART_MAIN, &style_screen1_LEDs_left_btn_main);
 	lv_obj_set_pos(ui->screen1_LEDs_left_btn, 44, 1100);
 	lv_obj_set_size(ui->screen1_LEDs_left_btn, 132, 132);
@@ -57,7 +62,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen1_LEDs_left_label
 	static lv_style_t style_screen1_LEDs_left_label_main;
-	lv_style_init(&style_screen1_LEDs_left_label_main);
+	lv_style_reset(&style_screen1_LEDs_left_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_left_label_main
 	lv_style_set_radius(&style_screen1_LEDs_left_label_main, LV_STATE_DEFAULT, 0);
@@ -81,7 +86,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_avlogoimg0
 	static lv_style_t style_screen1_LEDs_avlogoimg0_main;
-	lv_style_init(&style_screen1_LEDs_avlogoimg0_main);
+	lv_style_reset(&style_screen1_LEDs_avlogoimg0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_avlogoimg0_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_avlogoimg0_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -100,13 +105,18 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen1_LEDs_right_btn
 	static lv_style_t style_screen1_LEDs_right_btn_main;
-	lv_style_init(&style_screen1_LEDs_right_btn_main);
+	lv_style_reset(&style_screen1_LEDs_right_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_right_btn_main
 	lv_style_set_text_color(&style_screen1_LEDs_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen1_LEDs_right_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen1_LEDs_right_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen1_LEDs_right_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen1_LEDs_right_btn_main
+	lv_style_set_text_color(&style_screen1_LEDs_right_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen1_LEDs_right_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen1_LEDs_right_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen1_LEDs_right_btn, LV_IMGBTN_PART_MAIN, &style_screen1_LEDs_right_btn_main);
 	lv_obj_set_pos(ui->screen1_LEDs_right_btn, 544, 1100);
 	lv_obj_set_size(ui->screen1_LEDs_right_btn, 132, 132);
@@ -121,7 +131,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen1_LEDs_right_label
 	static lv_style_t style_screen1_LEDs_right_label_main;
-	lv_style_init(&style_screen1_LEDs_right_label_main);
+	lv_style_reset(&style_screen1_LEDs_right_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_right_label_main
 	lv_style_set_radius(&style_screen1_LEDs_right_label_main, LV_STATE_DEFAULT, 0);
@@ -145,7 +155,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_img_5oodt29s
 	static lv_style_t style_screen1_LEDs_img_5oodt29s_main;
-	lv_style_init(&style_screen1_LEDs_img_5oodt29s_main);
+	lv_style_reset(&style_screen1_LEDs_img_5oodt29s_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_img_5oodt29s_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_img_5oodt29s_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -164,16 +174,16 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen1_LEDs_redbtn0
 	static lv_style_t style_screen1_LEDs_redbtn0_main;
-	lv_style_init(&style_screen1_LEDs_redbtn0_main);
+	lv_style_reset(&style_screen1_LEDs_redbtn0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_redbtn0_main
 	lv_style_set_text_color(&style_screen1_LEDs_redbtn0_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
-	lv_style_set_text_font(&style_screen1_LEDs_redbtn0_main, LV_STATE_DEFAULT, &lv_font_OpenSans_Regular_36);
+	lv_style_set_text_font(&style_screen1_LEDs_redbtn0_main, LV_STATE_DEFAULT, &lv_font_OpenSans_Regular_32);
 	lv_style_set_image_recolor(&style_screen1_LEDs_redbtn0_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen1_LEDs_redbtn0_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen1_LEDs_redbtn0_main, LV_STATE_DEFAULT, 255);
 	lv_obj_add_style(ui->screen1_LEDs_redbtn0, LV_IMGBTN_PART_MAIN, &style_screen1_LEDs_redbtn0_main);
-	lv_obj_set_pos(ui->screen1_LEDs_redbtn0, 20, 900);
+	lv_obj_set_pos(ui->screen1_LEDs_redbtn0, 21, 899);
 	lv_obj_set_size(ui->screen1_LEDs_redbtn0, 190, 106);
 	lv_imgbtn_set_src(ui->screen1_LEDs_redbtn0,LV_BTN_STATE_RELEASED,&_button_alpha_190x106);
 	lv_imgbtn_set_src(ui->screen1_LEDs_redbtn0,LV_BTN_STATE_PRESSED,&_button_on_alpha_190x106);
@@ -188,7 +198,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen1_LEDs_greenbtn0
 	static lv_style_t style_screen1_LEDs_greenbtn0_main;
-	lv_style_init(&style_screen1_LEDs_greenbtn0_main);
+	lv_style_reset(&style_screen1_LEDs_greenbtn0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_greenbtn0_main
 	lv_style_set_text_color(&style_screen1_LEDs_greenbtn0_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -212,7 +222,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen1_LEDs_bluebtn0
 	static lv_style_t style_screen1_LEDs_bluebtn0_main;
-	lv_style_init(&style_screen1_LEDs_bluebtn0_main);
+	lv_style_reset(&style_screen1_LEDs_bluebtn0_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_bluebtn0_main
 	lv_style_set_text_color(&style_screen1_LEDs_bluebtn0_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
@@ -236,7 +246,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_led_red_on
 	static lv_style_t style_screen1_LEDs_led_red_on_main;
-	lv_style_init(&style_screen1_LEDs_led_red_on_main);
+	lv_style_reset(&style_screen1_LEDs_led_red_on_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_led_red_on_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_led_red_on_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -255,7 +265,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_led_red_off
 	static lv_style_t style_screen1_LEDs_led_red_off_main;
-	lv_style_init(&style_screen1_LEDs_led_red_off_main);
+	lv_style_reset(&style_screen1_LEDs_led_red_off_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_led_red_off_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_led_red_off_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -274,13 +284,18 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMGBTN_PART_MAIN for screen1_LEDs_home_btn
 	static lv_style_t style_screen1_LEDs_home_btn_main;
-	lv_style_init(&style_screen1_LEDs_home_btn_main);
+	lv_style_reset(&style_screen1_LEDs_home_btn_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_home_btn_main
 	lv_style_set_text_color(&style_screen1_LEDs_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0x00, 0x00, 0x00));
 	lv_style_set_image_recolor(&style_screen1_LEDs_home_btn_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
 	lv_style_set_image_recolor_opa(&style_screen1_LEDs_home_btn_main, LV_STATE_DEFAULT, 0);
 	lv_style_set_image_opa(&style_screen1_LEDs_home_btn_main, LV_STATE_DEFAULT, 255);
+
+	//Write style state: LV_STATE_CHECKED for style_screen1_LEDs_home_btn_main
+	lv_style_set_text_color(&style_screen1_LEDs_home_btn_main, LV_STATE_CHECKED, lv_color_make(0xFF, 0x33, 0xFF));
+	lv_style_set_image_recolor(&style_screen1_LEDs_home_btn_main, LV_STATE_CHECKED, lv_color_make(0x00, 0x00, 0x00));
+	lv_style_set_image_recolor_opa(&style_screen1_LEDs_home_btn_main, LV_STATE_CHECKED, 0);
 	lv_obj_add_style(ui->screen1_LEDs_home_btn, LV_IMGBTN_PART_MAIN, &style_screen1_LEDs_home_btn_main);
 	lv_obj_set_pos(ui->screen1_LEDs_home_btn, 294, 1100);
 	lv_obj_set_size(ui->screen1_LEDs_home_btn, 132, 132);
@@ -295,7 +310,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_LABEL_PART_MAIN for screen1_LEDs_page_label
 	static lv_style_t style_screen1_LEDs_page_label_main;
-	lv_style_init(&style_screen1_LEDs_page_label_main);
+	lv_style_reset(&style_screen1_LEDs_page_label_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_page_label_main
 	lv_style_set_radius(&style_screen1_LEDs_page_label_main, LV_STATE_DEFAULT, 0);
@@ -319,7 +334,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_led_green_on
 	static lv_style_t style_screen1_LEDs_led_green_on_main;
-	lv_style_init(&style_screen1_LEDs_led_green_on_main);
+	lv_style_reset(&style_screen1_LEDs_led_green_on_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_led_green_on_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_led_green_on_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -338,7 +353,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_led_green_off
 	static lv_style_t style_screen1_LEDs_led_green_off_main;
-	lv_style_init(&style_screen1_LEDs_led_green_off_main);
+	lv_style_reset(&style_screen1_LEDs_led_green_off_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_led_green_off_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_led_green_off_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -357,7 +372,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_led_blue_on
 	static lv_style_t style_screen1_LEDs_led_blue_on_main;
-	lv_style_init(&style_screen1_LEDs_led_blue_on_main);
+	lv_style_reset(&style_screen1_LEDs_led_blue_on_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_led_blue_on_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_led_blue_on_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));
@@ -376,7 +391,7 @@ void setup_scr_screen1_LEDs(lv_ui *ui){
 
 	//Write style LV_IMG_PART_MAIN for screen1_LEDs_led_blue_off
 	static lv_style_t style_screen1_LEDs_led_blue_off_main;
-	lv_style_init(&style_screen1_LEDs_led_blue_off_main);
+	lv_style_reset(&style_screen1_LEDs_led_blue_off_main);
 
 	//Write style state: LV_STATE_DEFAULT for style_screen1_LEDs_led_blue_off_main
 	lv_style_set_image_recolor(&style_screen1_LEDs_led_blue_off_main, LV_STATE_DEFAULT, lv_color_make(0xff, 0xff, 0xff));

@@ -71,6 +71,7 @@ typedef struct
 	lv_obj_t *screen2_WIFI_home_btn_label;
 	lv_obj_t *screen2_WIFI_page_label;
 	lv_obj_t *screen2_WIFI_ssid_list;
+	lv_obj_t *screen2_WIFI_ssid_list_item0;
 	lv_obj_t *screen2_WIFI_ssid_label;
 	lv_obj_t *screen2_WIFI_ip_addr_label;
 	lv_obj_t *screen2_WIFI_font_label;
@@ -78,6 +79,8 @@ typedef struct
 	lv_obj_t *screen2_WIFI_ssid_refresh_imgbtn_label;
 	lv_obj_t *screen2_WIFI_ssid_scan_label;
 	lv_obj_t *screen2_WIFI_eth_list;
+	lv_obj_t *screen2_WIFI_eth_list_item0;
+	lv_obj_t *screen2_WIFI_eth_list_item1;
 	lv_obj_t *screen3_USB;
 	lv_obj_t *screen3_USB_canvas_white;
 	lv_obj_t *screen3_USB_left_btn;
