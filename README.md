@@ -91,6 +91,11 @@ In order to run in GUI mode, (720x1280) 7inch MIPI display is required. Menu can
 <img src="./images/GUI_audio.PNG" alt="audio_page" width="190"/>
 
 Depending on the orientation, user may want to rotate the screen by 180 degree. To do that, `AVT_DISPLAY_ROTATE_180` must defined in the preprocessor under project settings.
+
+## Supporting projects
+The GUI was generated using GUI Guider 1.2.1, the GUI Guider project can be found here
+https://github.com/Avnet/MaaXBoard-RT-V3--GUI-Guider-Demo
+
 # Project Structure
 
 * `generated/`
