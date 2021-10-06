@@ -12,7 +12,7 @@
 /*!
 @page driver_log Driver Change Log
 
-@section phyrtl8211 PHYKSZ9131RNX
+@section PHYKSZ9131RNX
   The current PHYKSZ9131RNX driver version is 2.0.0.
 
   - 2.0.0

@@ -11,39 +11,27 @@
  * Definitions
  ******************************************************************************/
 
-/*! @brief Defines the PHY RTL8211F vendor defined registers. */
-#define PHY_SPECIFIC_STATUS_REG 0x01U /*!< The PHY specific status register. */
-#define PHY_PAGE_SELECT_REG     0x1FU /*!< The PHY page select register. */
+/*! @brief Defines the PHY KSZ9131RNX vendor defined registers. */
+#define PHY_SPECIFIC_STATUS_REG 0x1U  /*!< The PHY specific status register. */
+#define PHY_CONTROL_REG         0x1FU /*!< The PHY specific status register. */
 
-/*! @brief Defines the PHY RTL8211F ID number. */
+/*! @brief Defines the PHY KSZ9131RNX ID number. */
 #define PHY_CONTROL_ID1 0x0022U /*!< The PHY ID1 . */
 
 /*! @brief Defines the mask flag in specific status register. */
 #define PHY_SSTATUS_LINKSTATUS_MASK 0x04U /*!< The PHY link status mask. */
-#define PHY_SSTATUS_LINKSPEED_MASK  0x30U /*!< The PHY link speed mask. */
+#define PHY_SSTATUS_LINKSPEED_MASK  0x70U /*!< The PHY link speed mask. */
 #define PHY_SSTATUS_LINKDUPLEX_MASK 0x08U /*!< The PHY link duplex mask. */
 #define PHY_SSTATUS_LINKSPEED_SHIFT 4U    /*!< The link speed shift */
+#define PHY_SSTATUS_LINKSPEED_10M   1U
+#define PHY_SSTATUS_LINKSPEED_100M  2U
+#define PHY_SSTATUS_LINKSPEED_1000M 4U
 
-/*! @brief Defines the PHY RTL8211F extra page and the registers in specified page. */
-#define PHY_PAGE_RGMII_TXRX_DELAY_ADDR 0xD08U /*!< The register page including RGMII TX/RX delay setting. */
-#define PHY_RGMII_TX_DELAY_REG         0x11U  /*!< The RGMII TXC delay register. */
-#define PHY_RGMII_RX_DELAY_REG         0x15U  /*!< The RGMII RXC delay register. */
-#define PHY_RGMII_TX_DELAY_MASK        0x100U /*!< The RGMII TXC delay mask. */
-#define PHY_RGMII_RX_DELAY_MASK        0x8U   /*!< The RGMII RXC delay mask. */
-
-/*! @brief MDIO MMD Devices .*/
-#define PHY_MDIO_MMD_PCS 3U
-#define PHY_MDIO_MMD_AN  7U
-
-/*! @brief MDIO MMD Physical Coding layer device registers .*/
-#define PHY_MDIO_PCS_EEE_CAP 0x14U /* EEE capability */
-
-/*! @brief MDIO MMD AutoNegotiation device registers .*/
-#define PHY_MDIO_AN_EEE_ADV 0x3CU /* EEE advertisement */
-
-/*! @brief MDIO MMD EEE mask flags. (common for adv and cap) */
-#define PHY_MDIO_EEE_100TX 0x2U
-#define PHY_MDIO_EEE_1000T 0x4U
+/*! @brief Defines the PHY KSZ9131RNX MMD registers in specified device address. */
+#define PHY_MDIO_MMD_DEVICE            0x2U  /*!< The MMD device address area including RGMII TX/RX delay setting. */
+#define PHY_RGMII_RX_DELAY_REG         0x5U  /*!< The RGMII RX Data Pad Skew Register. */
+#define PHY_RGMII_TX_DELAY_REG         0x6U  /*!< The RGMII TX Data Pad Skew Register. */
+#define PHY_RGMII_CLK_DELAY_REG        0x8U  /*!< The Clock Pad Skew Register. */
 
 /*! @brief Defines the timeout macro. */
 #define PHY_READID_TIMEOUT_COUNT 1000U
@@ -51,6 +39,15 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+
+static status_t PHY_KSZ9131RNX_MMD_SetDevice(phy_handle_t *handle,
+                                           uint8_t device,
+                                           uint16_t addr,
+                                           phy_mmd_access_mode_t mode);
+static inline status_t PHY_KSZ9131RNX_MMD_ReadData(phy_handle_t *handle, uint32_t *data);
+static inline status_t PHY_KSZ9131RNX_MMD_WriteData(phy_handle_t *handle, uint32_t data);
+static status_t PHY_KSZ9131RNX_MMD_Read(phy_handle_t *handle, uint8_t device, uint16_t addr, uint32_t *data);
+static status_t PHY_KSZ9131RNX_MMD_Write(phy_handle_t *handle, uint8_t device, uint16_t addr, uint32_t data);
 
 /*******************************************************************************
  * Variables
@@ -104,20 +101,45 @@ status_t PHY_KSZ9131RNX_Init(phy_handle_t *handle, const phy_config_t *config)
         return result;
     }
 
-    /* Set the negotiation. */
-    result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_AUTONEG_ADVERTISE_REG,
-                        (PHY_100BASETX_FULLDUPLEX_MASK | PHY_100BASETX_HALFDUPLEX_MASK | PHY_10BASETX_FULLDUPLEX_MASK |
-                         PHY_10BASETX_HALFDUPLEX_MASK));
-    if (result == kStatus_Success)
+    if (config->autoNeg)
     {
+        /* Set the auto-negotiation. */
         result =
-            MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_1000BASET_CONTROL_REG, PHY_1000BASET_FULLDUPLEX_MASK);
+            MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_AUTONEG_ADVERTISE_REG,
+                       PHY_100BASETX_FULLDUPLEX_MASK | PHY_100BASETX_HALFDUPLEX_MASK | PHY_10BASETX_FULLDUPLEX_MASK |
+                           PHY_10BASETX_HALFDUPLEX_MASK | PHY_IEEE802_3_SELECTOR_MASK);
         if (result == kStatus_Success)
         {
-            result = MDIO_Read(handle->mdioHandle, handle->phyAddr, PHY_BASICCONTROL_REG, &regValue);
-            result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_BASICCONTROL_REG,
-                                (regValue | PHY_BCTL_AUTONEG_MASK | PHY_BCTL_RESTART_AUTONEG_MASK));
+            result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_1000BASET_CONTROL_REG,
+                                PHY_1000BASET_FULLDUPLEX_MASK);
+            if (result == kStatus_Success)
+            {
+                result = MDIO_Read(handle->mdioHandle, handle->phyAddr, PHY_BASICCONTROL_REG, &regValue);
+                if (result == kStatus_Success)
+                {
+                    result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_BASICCONTROL_REG,
+                                        (regValue | PHY_BCTL_AUTONEG_MASK | PHY_BCTL_RESTART_AUTONEG_MASK));
+                }
+            }
         }
+    }
+    else
+    {
+        /* Disable isolate mode */
+        result = MDIO_Read(handle->mdioHandle, handle->phyAddr, PHY_BASICCONTROL_REG, &regValue);
+        if (result != kStatus_Success)
+        {
+            return result;
+        }
+        regValue &= ~PHY_BCTL_ISOLATE_MASK;
+        result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_BASICCONTROL_REG, regValue);
+        if (result != kStatus_Success)
+        {
+            return result;
+        }
+
+        /* Disable the auto-negotiation and set user-defined speed/duplex configuration. */
+        result = PHY_KSZ9131RNX_SetLinkSpeedDuplex(handle, config->speed, config->duplex);
     }
 
     return result;
@@ -187,20 +209,20 @@ status_t PHY_KSZ9131RNX_GetLinkSpeedDuplex(phy_handle_t *handle, phy_speed_t *sp
     uint32_t regValue;
 
     /* Read the status register. */
-    result = MDIO_Read(handle->mdioHandle, handle->phyAddr, PHY_SPECIFIC_STATUS_REG, &regValue);
+    result = MDIO_Read(handle->mdioHandle, handle->phyAddr, PHY_CONTROL_REG, &regValue);
     if (result == kStatus_Success)
     {
         if (speed != NULL)
         {
             switch ((regValue & PHY_SSTATUS_LINKSPEED_MASK) >> PHY_SSTATUS_LINKSPEED_SHIFT)
             {
-                case (uint32_t)kPHY_Speed10M:
+                case (uint32_t)PHY_SSTATUS_LINKSPEED_10M:
                     *speed = kPHY_Speed10M;
                     break;
-                case (uint32_t)kPHY_Speed100M:
+                case (uint32_t)PHY_SSTATUS_LINKSPEED_100M:
                     *speed = kPHY_Speed100M;
                     break;
-                case (uint32_t)kPHY_Speed1000M:
+                case (uint32_t)PHY_SSTATUS_LINKSPEED_1000M:
                     *speed = kPHY_Speed1000M;
                     break;
                 default:
@@ -236,7 +258,7 @@ status_t PHY_KSZ9131RNX_SetLinkSpeedDuplex(phy_handle_t *handle, phy_speed_t spe
         regValue &= ~PHY_BCTL_AUTONEG_MASK;
         if (speed == kPHY_Speed1000M)
         {
-            regValue &= PHY_BCTL_SPEED0_MASK;
+            regValue &= ~PHY_BCTL_SPEED0_MASK;
             regValue |= PHY_BCTL_SPEED1_MASK;
         }
         else if (speed == kPHY_Speed100M)
@@ -297,6 +319,66 @@ status_t PHY_KSZ9131RNX_EnableLoopback(phy_handle_t *handle, phy_loop_t mode, ph
             result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_BASICCONTROL_REG,
                                 (regValue | PHY_BCTL_RESTART_AUTONEG_MASK));
         }
+    }
+    return result;
+}
+
+static status_t PHY_KSZ9131RNX_MMD_SetDevice(phy_handle_t *handle,
+                                           uint8_t device,
+                                           uint16_t addr,
+                                           phy_mmd_access_mode_t mode)
+{
+    status_t result = kStatus_Success;
+
+    /* Set Function mode of address access(b00) and device address. */
+    result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_MMD_ACCESS_CONTROL_REG, device);
+    if (result != kStatus_Success)
+    {
+        return result;
+    }
+
+    /* Set register address. */
+    result = MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_MMD_ACCESS_DATA_REG, addr);
+    if (result != kStatus_Success)
+    {
+        return result;
+    }
+
+    /* Set Function mode of data access(b01~11) and device address. */
+    result =
+        MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_MMD_ACCESS_CONTROL_REG, (uint32_t)mode | (uint32_t)device);
+    return result;
+}
+
+static inline status_t PHY_KSZ9131RNX_MMD_ReadData(phy_handle_t *handle, uint32_t *data)
+{
+    return MDIO_Read(handle->mdioHandle, handle->phyAddr, PHY_MMD_ACCESS_DATA_REG, data);
+}
+
+static inline status_t PHY_KSZ9131RNX_MMD_WriteData(phy_handle_t *handle, uint32_t data)
+{
+    return MDIO_Write(handle->mdioHandle, handle->phyAddr, PHY_MMD_ACCESS_DATA_REG, data);
+}
+
+static status_t PHY_KSZ9131RNX_MMD_Read(phy_handle_t *handle, uint8_t device, uint16_t addr, uint32_t *data)
+{
+    status_t result = kStatus_Success;
+    result = PHY_KSZ9131RNX_MMD_SetDevice(handle, device, addr, kPHY_MMDAccessNoPostIncrement);
+    if (result == kStatus_Success)
+    {
+        result = PHY_KSZ9131RNX_MMD_ReadData(handle, data);
+    }
+    return result;
+}
+
+static status_t PHY_KSZ9131RNX_MMD_Write(phy_handle_t *handle, uint8_t device, uint16_t addr, uint32_t data)
+{
+    status_t result = kStatus_Success;
+
+    result = PHY_KSZ9131RNX_MMD_SetDevice(handle, device, addr, kPHY_MMDAccessNoPostIncrement);
+    if (result == kStatus_Success)
+    {
+        result = PHY_KSZ9131RNX_MMD_WriteData(handle, data);
     }
     return result;
 }
