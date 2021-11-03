@@ -33,6 +33,27 @@
 
 #include "lvgl_demo.h"
 
+#if defined(__FAT_BUILD__)
+#include "audio_demo.h"
+#include <audioFile.h>
+
+#define sampleCountLimit	120
+
+uint16_t sampleCount = 0;
+static bool FATPlayTest = false;
+
+static int32_t min_max_ch0[4] = {50,50,0,0};
+static int32_t min_max_ch1[4] = {50,50,0,0};
+static int32_t min_max_ch2[4] = {50,50,0,0};
+static int32_t min_max_ch3[4] = {50,50,0,0};
+
+static int32_t audioPeaksTemp[4][2] = {0};
+static int32_t audioPeaksTest[4][2] = {0};
+static int32_t audioPeaksIdle[4][2] = {0};
+
+static void FATResetAudioCapture();
+#endif
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -179,10 +200,15 @@ static void saiCallback(I2S_Type *base, sai_handle_t *handle, status_t status, v
     if (kStatus_SAI_TxError == status)
     {
         /* Handle the error. */
+    	isSaiFinished = true;
+    }
+    else if (kStatus_SAI_TxIdle  == status)
+    {
+    	isSaiFinished = true;
     }
     else
     {
-    	isSaiFinished = true;
+    	/* Handle other cases */
     }
 }
 static void pdm_error_irqHandler(void)
@@ -424,6 +450,23 @@ void * getRtosI2cHandle()
 	return ((sgtl_handle_t *)(codecHandle.codecDevHandle))->i2cHandle;
 }
 
+#if defined(__FAT_BUILD__)
+void UpdateMinMaxValues(int32_t channel, int32_t *min, int32_t *max)
+{
+	int32_t signal = map_range(channel>>8, -32768, 32767, 0, 100);
+
+	if (signal < *min)
+	{
+		*min = signal;
+	}
+
+	if (signal > *max)
+	{
+		*max = signal;
+	}
+}
+#endif
+
 /*******************************************************************************
  * Freetos Task: audio_task
  * @brief: read 4 microphones, output selected mic to audio codec
@@ -501,9 +544,12 @@ void audio_task_init()
 		if (s_readIndex != s_writeIndex)
 		{
 			/*  xfer structure */
+
+#if !defined(__FAT_BUILD__)
 			xfer.data     = (uint8_t *)(&txBuff[s_writeIndex * BUFF_TIMES * BUFFER_SIZE]);
 			xfer.dataSize = BUFF_TIMES * BUFFER_SIZE;
 			if (SAI_TransferSendNonBlocking(DEMO_SAI, &s_saiTxHandle, &xfer) != kStatus_SAI_QueueFull)
+#endif
 			{
 				if ((s_writeIndex += 1U) >= BUFFER_NUMBER/BUFF_TIMES)
 				{
@@ -544,6 +590,121 @@ void audio_task_init()
 						/* send the mic value to GUI graph*/
 						addMicData(4, mapped_ch3);
 					}
+
+#if defined(__FAT_BUILD__)
+
+					static enum
+					{
+						idleWaitForTest,
+						initiateTone,
+						readToneSamples,
+						waitForToneToEnd,
+						pauseForAMoment,
+						readAmbientSamples,
+						readAudioSamples,
+						finishAudioTesting,
+
+					}micTestState = idleWaitForTest;
+					static uint32_t micTestReturnState;
+
+					static uint32_t pauseDelayCounter = 0;
+
+					switch(micTestState)
+					{
+						case idleWaitForTest:
+							if(FATPlayTest)
+							{
+								micTestState = initiateTone;
+							}
+							break;
+						case initiateTone:
+							xfer.data     = (uint8_t *)(&audioTest[0]);
+							xfer.dataSize = sizeof(audioTest);
+							isSaiFinished = false;
+							SAI_TransferSendNonBlocking(DEMO_SAI, &s_saiTxHandle, &xfer);
+							FATResetAudioCapture();
+							micTestState = readAudioSamples;
+							micTestReturnState = readToneSamples;
+							break;
+						case readToneSamples:
+							for(int c=0; c<4; c++)
+							{
+								for(int m=0; m<2; m++)
+								{
+									audioPeaksTest[c][m] = audioPeaksTemp[c][m];
+								}
+							}
+							micTestState = waitForToneToEnd;
+							break;
+						case waitForToneToEnd:
+							if(isSaiFinished)
+							{
+								pauseDelayCounter = 0;
+								FATResetAudioCapture();
+								micTestState = pauseForAMoment;
+							}
+							break;
+						case pauseForAMoment:
+							if(pauseDelayCounter++ > 200)
+							{
+								FATResetAudioCapture();
+								micTestState = readAudioSamples;
+								micTestReturnState = readAmbientSamples;
+							}
+							break;
+						case readAmbientSamples:
+							for(int c=0; c<4; c++)
+							{
+								for(int m=0; m<2; m++)
+								{
+									audioPeaksIdle[c][m] = audioPeaksTemp[c][m];
+								}
+							}
+							micTestState = finishAudioTesting;
+							break;
+						case readAudioSamples:
+							if(sampleCount++ > sampleCountLimit)
+							{
+								sampleCount = sampleCountLimit;
+
+								min_max_ch0[2] = min_max_ch0[0];
+								min_max_ch1[2] = min_max_ch1[0];
+								min_max_ch2[2] = min_max_ch2[0];
+								min_max_ch3[2] = min_max_ch3[0];
+
+								min_max_ch0[3] = min_max_ch0[1];
+								min_max_ch1[3] = min_max_ch1[1];
+								min_max_ch2[3] = min_max_ch2[1];
+								min_max_ch3[3] = min_max_ch3[1];
+
+								audioPeaksTemp[0][0] = min_max_ch0[2];
+								audioPeaksTemp[0][1] = min_max_ch0[3];
+
+								audioPeaksTemp[1][0] = min_max_ch1[2];
+								audioPeaksTemp[1][1] = min_max_ch1[3];
+
+								audioPeaksTemp[2][0] = min_max_ch2[2];
+								audioPeaksTemp[2][1] = min_max_ch2[3];
+								audioPeaksTemp[3][0] = min_max_ch3[2];
+								audioPeaksTemp[3][1] = min_max_ch3[3];
+
+								micTestState = micTestReturnState;
+							}
+							else
+							{
+								UpdateMinMaxValues(channel_0, &min_max_ch0[0], &min_max_ch0[1]);
+								UpdateMinMaxValues(channel_1, &min_max_ch1[0], &min_max_ch1[1]);
+								UpdateMinMaxValues(channel_2, &min_max_ch2[0], &min_max_ch2[1]);
+								UpdateMinMaxValues(channel_3, &min_max_ch3[0], &min_max_ch3[1]);
+
+							}
+							break;
+						case finishAudioTesting:
+							FATPlayTest = false;
+							micTestState = idleWaitForTest;
+							break;
+					}
+#endif
 				}
 			}
 		}
@@ -554,3 +715,63 @@ void audio_task_init()
 	vTaskSuspend(NULL);
 }
 
+#if defined(__FAT_BUILD__)
+/*!
+ * @brief FAT play Right channel audio test
+ */
+void FATPlayAudioTest()
+{
+	FATPlayTest = true;
+}
+
+/*!
+ * @Returns the status of the audio test
+ */
+bool FATIsAudioTestRunning()
+{
+	return FATPlayTest;
+}
+
+/*!
+ * @brief Resets all data related to audio test
+ */
+static void FATResetAudioCapture()
+{
+	for(int c=0; c<4; c++)
+	{
+		for(int m=0; m<2; m++)
+		{
+			audioPeaksTemp[c][m] = 50;
+		}
+	}
+
+	min_max_ch0[0] = min_max_ch0[1] = 50;
+	min_max_ch0[2] = min_max_ch0[3] = 0;
+
+	min_max_ch1[0] = min_max_ch1[1] = 50;
+	min_max_ch1[2] = min_max_ch1[3] = 0;
+
+	min_max_ch2[0] = min_max_ch2[1] = 50;
+	min_max_ch2[2] = min_max_ch2[3] = 0;
+
+	min_max_ch3[0] = min_max_ch3[1] = 50;
+	min_max_ch3[2] = min_max_ch3[3] = 0;
+	sampleCount = 0;
+}
+
+/*!
+ * @brief returns the audio peaks calculated while idle and during the test
+ */
+bool FATGetTestResults(int channel, int32_t* minIdle, int32_t* maxIdle, int32_t* minTest, int32_t* maxTest)
+{
+	if(channel<4 && channel>=0)
+	{
+		*minIdle = audioPeaksIdle[channel][0];
+		*maxIdle = audioPeaksIdle[channel][1];
+		*minTest = audioPeaksTest[channel][0];
+		*maxTest = audioPeaksTest[channel][1];
+		return true;
+	}
+	else return false;
+}
+#endif

@@ -102,7 +102,13 @@ static usb_host_mouse_instance_t *curr_mouse_inst;
  ******************************************************************************/
 
 /* Constant TEXT for cli */
+
+#if defined(__FAT_BUILD__)
+const char *TEXT_WELCOME            = "**** FACTORY TESTER ****\r\n>";
+#else
 const char *TEXT_WELCOME            = "**** MaaxBoard RT CLI ****\r\n>";
+#endif
+
 const char *TEXT_ABORT_CMD			= "\r\n***Command Aborted****\r\n>";
 const char *TEXT_BUFFER_OVERRUN     = "\r\nRing buffer overrun!\r\n";
 const char *TEXT_HW_OVERRUN 		= "\r\nHardware buffer overrun!\r\n";
@@ -896,6 +902,211 @@ static BaseType_t ethernetScanCommand( char *pcWriteBuffer,size_t xWriteBufferLe
 	return xReturn;
 }
 
+
+
+
+
+
+
+
+
+/************************ FAT LOGIC ************************/
+#if defined(__FAT_BUILD__)
+
+/*****************************************************************************\
+ * Function:    FAT_ethernetIPCommand
+ * Input:       char *pcWriteBufer,size_t xWriteBufferLen,const char *pcCommandString
+ * Returns:     BaseType_t
+ * Description:
+ *     This function sends the IP address of selected interface on UART
+\*****************************************************************************/
+static BaseType_t FAT_ethernetIPCommand( char *pcWriteBuffer,size_t xWriteBufferLen, const char *pcCommandString )
+{
+	if ((eth_1g_addr.connected) && (eth_100mb_addr.connected))
+	{
+		sprintf(pcWriteBuffer, "100Mb=%d.%d.%d.%d, 1G=%d.%d.%d.%d\r\n",
+				(uint8_t)((eth_100mb_addr.ip)), (uint8_t)((eth_100mb_addr.ip)>>8),
+				(uint8_t)((eth_100mb_addr.ip)>>16), (uint8_t)((eth_100mb_addr.ip)>>24),
+				(uint8_t)((eth_1g_addr.ip)), (uint8_t)((eth_1g_addr.ip)>>8),
+				(uint8_t)((eth_1g_addr.ip)>>16), (uint8_t)((eth_1g_addr.ip)>>24));
+	}
+	else if ((eth_1g_addr.connected) && (!eth_100mb_addr.connected))
+	{
+		sprintf(pcWriteBuffer, "100Mb=Not Connected, 1G=%d.%d.%d.%d\r\n",
+				(uint8_t)((eth_1g_addr.ip)), (uint8_t)((eth_1g_addr.ip)>>8),
+				(uint8_t)((eth_1g_addr.ip)>>16), (uint8_t)((eth_1g_addr.ip)>>24));
+	}
+	else if ((!eth_1g_addr.connected) && (eth_100mb_addr.connected))
+	{
+		sprintf(pcWriteBuffer, "100Mb=%d.%d.%d.%d, 1G=Not Connected\r\n",
+				(uint8_t)((eth_100mb_addr.ip)), (uint8_t)((eth_100mb_addr.ip)>>8),
+				(uint8_t)((eth_100mb_addr.ip)>>16), (uint8_t)((eth_100mb_addr.ip)>>24));
+	}
+	else
+	{
+		sprintf(pcWriteBuffer, "100Mb=Not connected, 1G=Not connected\r\n");
+	}
+
+	pcWriteBuffer[xWriteBufferLen-1]=0;
+
+	return pdFALSE;
+}
+
+
+/*****************************************************************************\
+ * Function:    FAT_HIDReportCommand
+ * Input:       char *pcWriteBufer,size_t xWriteBufferLen,const char *pcCommandString
+ * Returns:     BaseType_t
+ * Description:
+ *     This function sends the type of the connected HID device on UART
+\*****************************************************************************/
+static BaseType_t FAT_HIDReportCommand( char *pcWriteBuffer,size_t xWriteBufferLen, const char *pcCommandString )
+{
+	(void)pcCommandString;
+	int length = 0;
+	BaseType_t xReturn;
+
+	if (usb_devices[0].deviceExist) {
+		sprintf(pcWriteBuffer, "=mouse\r\n");
+	}
+
+	else if (usb_devices[1].deviceExist) {
+		sprintf(pcWriteBuffer, "=keyboard\r\n");
+	}
+	else {
+		sprintf(pcWriteBuffer, "=Not connected\r\n");
+	}
+
+	pcWriteBuffer[xWriteBufferLen-1]=0;
+
+	return pdFALSE;
+}
+
+/*****************************************************************************\
+ * Function:    FAT_WIFIReportCommand
+ * Input:       char *pcWriteBufer,size_t xWriteBufferLen,const char *pcCommandString
+ * Returns:     BaseType_t
+ * Description:
+ *     This function sends the status of the FAT wifi node and signal strength
+\*****************************************************************************/
+static BaseType_t FAT_WIFIReportCommand( char *pcWriteBuffer,size_t xWriteBufferLen, const char *pcCommandString )
+{
+	(void)pcCommandString;
+	int length = 0;
+	BaseType_t xReturn = pdFALSE;
+    int8_t *pcParameter1;
+    BaseType_t xParameter1StringLength;
+
+    pcParameter1 = (int8_t *)FreeRTOS_CLIGetParameter
+                        (
+                          /* The command string itself. */
+                          pcCommandString,
+                          /* Return the first parameter. */
+                          1,
+                          /* Store the parameter string length. */
+                          &xParameter1StringLength
+                        );
+    /* Terminate parameter. */
+    pcParameter1[ xParameter1StringLength ] = 0x00;
+
+    if (xParameter1StringLength >= 1) {
+
+		const char s[2] = "|";
+		char *node1;
+		char *node2;
+		bool validParameters = false;
+
+		/* get the first token */
+		node1 = strtok(pcParameter1, s);
+
+		if( node1 != NULL )
+		{
+			node2 = strtok(NULL, s);
+
+			if( node2 != NULL )
+			{
+				validParameters = true;
+			}
+		}
+
+        if(validParameters)
+        {
+        	if(FATIsWifiNetworkFound(node1) && FATIsWifiNetworkFound(node2))
+			{
+				sprintf(pcWriteBuffer, " =2.4G signal strength: -%d, 5G signal strength: -%d\r\n",
+						FATGetWifiSignalStrength(node1),
+						FATGetWifiSignalStrength(node2));
+			}
+        	else if(!FATIsWifiNetworkFound(node1) && FATIsWifiNetworkFound(node2))
+			{
+				sprintf(pcWriteBuffer, " =2.4G Not connected, 5G signal strength: -%d\r\n",
+						FATGetWifiSignalStrength(node2));
+			}
+        	else if(FATIsWifiNetworkFound(node1) && !FATIsWifiNetworkFound(node2))
+			{
+				sprintf(pcWriteBuffer, " =2.4G signal strength: -%d, 5G Not connected\r\n",
+						FATGetWifiSignalStrength(node1));
+			}
+			else
+			{
+				sprintf(pcWriteBuffer, " =2.4G Not connected, 5G Not connected\r\n");
+			}
+        }
+        else
+        {
+        	sprintf(pcWriteBuffer+length, " =Invalid parameter\r\n");
+        }
+    }
+    else
+    {
+    	sprintf(pcWriteBuffer+length, " =Invalid parameter\r\n");
+    }
+
+	pcWriteBuffer[xWriteBufferLen-1]=0;
+
+	return pdFALSE;
+}
+
+/*****************************************************************************\
+ * Function:    FAT_PlayAudioCommand
+ * Input:       char *pcWriteBufer,size_t xWriteBufferLen,const char *pcCommandString
+ * Returns:     BaseType_t
+ * Description:
+ *     This will play audio on the selected channel
+\*****************************************************************************/
+static BaseType_t FAT_PlayAudioCommand( char *pcWriteBuffer,size_t xWriteBufferLen, const char *pcCommandString )
+{
+	(void)pcCommandString;
+	int length = 0;
+	BaseType_t xReturn;
+
+	int32_t minIdle,  maxIdle, minTest, maxTest = 0;
+	int16_t mic[4][2];
+
+	FATPlayAudioTest();
+
+	/* wait till test completes */
+	while(FATIsAudioTestRunning());
+
+	for (int i=0; i<4; i++)
+	{
+		FATGetTestResults(i, &minIdle, &maxIdle, &minTest, &maxTest);
+		mic[i][0] = maxIdle-minIdle;
+		mic[i][1] = maxTest-minTest;
+	}
+	sprintf(pcWriteBuffer, "Amplitudes: %d ,%d ,%d ,%d, %d ,%d ,%d ,%d\r\n",
+			mic[0][0], mic[0][1],
+			mic[1][0], mic[1][1],
+			mic[2][0], mic[2][1],
+			mic[3][0], mic[3][1]);
+
+	pcWriteBuffer[xWriteBufferLen-1]=0;
+	return pdFALSE;
+}
+
+
+#endif
+
 /* Utility functions */
 
 /*****************************************************************************\
@@ -1010,6 +1221,47 @@ static const CLI_Command_Definition_t ethernetScanCommandStruct =
 	ethernetScanCommand,
     0
 };
+
+
+
+
+/************************ FAT LOGIC ************************/
+#if defined(__FAT_BUILD__)
+static const CLI_Command_Definition_t FAT_ethernetIPCommandStruct =
+{
+    "ip",
+	"--------- FAT COMMANDS ---------------\r\n"
+    " ip         : Ethernet IP request \r\n",
+	FAT_ethernetIPCommand,
+    0
+};
+
+static const CLI_Command_Definition_t FAT_HIDReportCommandStruct =
+{
+    "hid",
+    " hid         : Connected HID device \r\n",
+	FAT_HIDReportCommand,
+    0
+};
+
+static const CLI_Command_Definition_t FAT_WIFIReportCommandStruct =
+{
+    "wifi",
+    " wifi         : wifi status and signal strength \r\n",
+	FAT_WIFIReportCommand,
+    1
+};
+
+static const CLI_Command_Definition_t FAT_PlayAudioCommandStruct =
+{
+    "play",
+    " play         : play audio test sample \r\n",
+	FAT_PlayAudioCommand,
+    0
+};
+
+#endif
+
 
 /***************** USB HOST & DEV ******************************/
 static const CLI_Command_Definition_t listUSBCommandStruct =
@@ -1137,6 +1389,14 @@ void console_task(void *pvParameters)
     FreeRTOS_CLIRegisterCommand( &exitCommandStruct );
     FreeRTOS_CLIRegisterCommand( &helpCommandStruct );
 
+
+    /************************ FAT LOGIC ************************/
+#if defined(__FAT_BUILD__)
+    FreeRTOS_CLIRegisterCommand( &FAT_ethernetIPCommandStruct );
+    FreeRTOS_CLIRegisterCommand( &FAT_HIDReportCommandStruct);
+    FreeRTOS_CLIRegisterCommand( &FAT_WIFIReportCommandStruct);
+    FreeRTOS_CLIRegisterCommand( &FAT_PlayAudioCommandStruct);
+#endif
 
     /* Receive user input and send it back to terminal. */
 

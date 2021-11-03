@@ -64,4 +64,17 @@ bool isWifiReady(void);
 \*****************************************************************************/
 void wifi_task(void *param);
 
+
+#if defined(__FAT_BUILD__)
+typedef struct
+{
+	char name[25];
+	unsigned char strength;
+
+}tWifiSSID;
+
+bool FATIsWifiNetworkFound(char* name);
+int16_t FATGetWifiSignalStrength(char* name);
+#endif
+
 #endif //_NETWORK_DEMO_H_

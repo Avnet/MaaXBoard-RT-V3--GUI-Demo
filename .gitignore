@@ -7,3 +7,4 @@ GuiderProject/lvgl-simulator/build
 language.settings.xml
 .vscode/
 .settings/
+/Debug FAT/

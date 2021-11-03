@@ -65,4 +65,41 @@ void enableAudioMicChannels(uint8_t ch, uint8_t val);
  *	Audio codec driver initializes lpi2c5 peripheral, need this handle for scanning from gui or console.
 \*****************************************************************************/
 void * getRtosI2cHandle();
+
+#if defined(__FAT_BUILD__)
+/*****************************************************************************\
+ * Function:    FATPlayRightChannel
+ * Inputs:      void
+ * Returns:     void
+ * Description:
+ *	Initiates audio play back
+\*****************************************************************************/
+void FATPlayAudioTest();
+
+/*****************************************************************************\
+ * Function:    FATIsAudioTestRunning
+ * Inputs:      void
+ * Returns:     bool
+ * Description:
+ *	Returns the status of the audio test
+\*****************************************************************************/
+bool FATIsAudioTestRunning();
+
+/*!
+ * @
+ */
+/*****************************************************************************\
+ * Function:    FATGetTestResults
+ * Inputs:      void
+ * Returns:     bool
+ * Description:
+ *  if a valid channel is selected (0-3) return is true otherwise false
+ *	This function will populate the passed pointer locations with the audio
+ *	peaks calculated while idle and during the audio test.
+\*****************************************************************************/
+bool FATGetTestResults(int channel, int32_t* minIdle, int32_t* maxIdle, int32_t* minTest, int32_t* maxTest);
+
+#endif
+
+
 #endif /* AUDIO_DEMO_H_ */

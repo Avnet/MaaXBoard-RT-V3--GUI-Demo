@@ -50,8 +50,14 @@ static void timer_poll_udp_client(TimerHandle_t timer);
 
 // Hardwired SSID, passphrase of AP to connect to
 // Change this to fit your AP
-#define EXT_AP_SSID       "max123"
-#define EXT_AP_PASSPHRASE "1qaz2wsx"
+
+#if defined(__FAT_BUILD__)
+#define EXT_AP_SSID       	"AVNET_5G"
+#define EXT_AP_PASSPHRASE 	""
+#else
+#define EXT_AP_SSID       	"max123"
+#define EXT_AP_PASSPHRASE 	"1qaz2wsx"
+#endif
 
 #ifndef IPERF_SERVER_ADDRESS
 #define IPERF_SERVER_ADDRESS "10.0.0.1"
@@ -102,6 +108,11 @@ static volatile uint32_t wifi_status = 0;
 #define BIT_CONN_RDY	1
 
 
+#if defined(__FAT_BUILD__)
+static tWifiSSID wifiList[100];
+static uint8_t wifiListLen = 0;
+#endif
+
 /*******************************************************************************
  * Functions
  ******************************************************************************/
@@ -129,6 +140,11 @@ int __scan_cb(unsigned int count)
 	shared_buff[0] = 0xAA;
 	shared_buff[1] = 0xBB;
 	shared_buff[2] = (uint8_t)count;	// assuming ssid count is < 256
+
+#if defined(__FAT_BUILD__)
+	wifiListLen = 0;
+#endif
+
     if (count == 0)
     {
         PRINTF("no networks found\r\n");
@@ -149,6 +165,16 @@ int __scan_cb(unsigned int count)
 			}
 			memcpy((shared_buff+offset+i*sizeof(struct wlan_scan_result)), &res, sizeof(struct wlan_scan_result));
 			print_mac(res.bssid);
+
+#if defined(__FAT_BUILD__)
+			if(wifiListLen<100)
+			{
+				strncpy(wifiList[wifiListLen].name, res.ssid, sizeof(wifiList[wifiListLen].name)-1);
+				wifiList[wifiListLen].strength = res.rssi;
+				wifiListLen++;
+			}
+
+#endif
 
 			char strBuffer[40];
 			if (res.ssid[0])
@@ -222,7 +248,6 @@ int connectToAP(void)
     int ret;
 
     PRINTF("Connecting to %s .....", sta_network.ssid);
-
     ret = wlan_connect(sta_network.name);
 
     if (ret != WM_SUCCESS)
@@ -896,3 +921,32 @@ static void timer_poll_udp_client(TimerHandle_t timer)
 
     tcpip_try_callback(poll_udp_client, NULL);
 }
+
+
+#if defined(__FAT_BUILD__)
+/*!
+ * @brief FAT wifi network found status.
+ */
+bool FATIsWifiNetworkFound(char* name)
+{
+	for(int i=0; i<wifiListLen; i++)
+	{
+		if(strcmp(name, wifiList[i].name) == 0) return true;
+	}
+
+	return false;
+}
+
+/*!
+ * @brief FAT wifi network signal strength.
+ */
+int16_t FATGetWifiSignalStrength(char* name)
+{
+	for(int i=0; i<wifiListLen; i++)
+	{
+		if(strcmp(name, wifiList[i].name) == 0) return wifiList[i].strength;
+	}
+
+	return -1;
+}
+#endif

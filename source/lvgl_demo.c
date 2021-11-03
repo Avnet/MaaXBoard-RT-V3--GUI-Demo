@@ -89,6 +89,14 @@ static int s_enabled_mic_count = 0;
 static lv_chart_series_t *s_custom_series = NULL;
 static int s_custom_graph_refresh_count = 0;
 
+/************************ FAT LOGIC ************************/
+#if defined(__FAT_BUILD__)
+#define LED_DELAY_SLOW		0x20
+#define LED_DELAY_FAST		0x8
+
+static uint16_t delay = LED_DELAY_FAST;
+#endif
+
 //ethernet
 extern ip_ro_t eth_100mb_addr;
 extern ip_ro_t eth_1g_addr;
@@ -1238,14 +1246,50 @@ void lvgl_task(void *param)
 
 	set_red_led(false);
 	set_green_led(false);
-	set_blue_led(false);
+#if defined(__FAT_BUILD__)
+    static uint16_t counter = 0;
+    static uint8_t nextLED = 1;
 
+	set_blue_led(true);
+#else
+	set_blue_led(false);
+#endif
     s_page_refresh = NULL;
 
     openMenuScreen();
 
     for (;;)
     {
+#if defined(__FAT_BUILD__)
+		/************************ FAT LOGIC ************************/
+		/* Constantly cycle through the RGB led colors */
+		if (getInputSignal())
+        {
+        	/* Toggle RGB cycle speed every time the user button is pressed */
+        	if(delay == LED_DELAY_SLOW)
+        		delay = LED_DELAY_FAST;
+        	else
+        		delay = LED_DELAY_SLOW;
+
+        	setInputSignal(false);
+        }
+
+		if(counter >= delay)
+		{
+			set_red_led(nextLED & 0x01?true:false);
+			set_green_led(nextLED & 0x02?true:false);
+			set_blue_led(nextLED & 0x04?true:false);
+			counter = 0;
+			nextLED <<= 1;
+			if(nextLED > 4) nextLED = 1;
+		}
+		else counter++;
+
+        if (s_page_refresh != NULL)
+        {
+            (*s_page_refresh)();
+        }
+#else
         if (getInputSignal())
         {
             switch (s_active_page)
@@ -1287,7 +1331,7 @@ void lvgl_task(void *param)
         {
             (*s_page_refresh)();
         }
-
+#endif
         lv_task_handler();
         vTaskDelay(5);
     }
