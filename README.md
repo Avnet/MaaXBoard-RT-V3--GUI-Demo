@@ -144,3 +144,6 @@ MaaXBoard-demo uses [FREERTOS+CLI](https://www.freertos.org/FreeRTOS-Plus/FreeRT
 # Reference
 
 * [MaaXBoard-rt](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/maaxboard/maaxboard-rt/)
+
+# Issues
+* [Camera Status](https://github.com/Avnet/MaaXBoard-RT-V3--GUI-Demo/issues/1#issue-1113478183)
