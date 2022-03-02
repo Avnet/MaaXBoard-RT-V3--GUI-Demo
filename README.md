@@ -14,10 +14,22 @@ This program demonstrates the basic functionality of MaaXBoard-RT board. It incl
 
 **Table of Contents**
 
-1. [Required Hardwares](#Required-Hardwares)
-	1. [MaaXBoard RT board](#Maaxboard-RT-board)
-    2. [MCU-Link debug probe](#mcu-link-debug-probe)
-	2. [MIPI DSI 7-INCH CAPACITIVE TOUCH DISPLAY (Optional)](#mipi-dsi-7-inch-capacitive-touch-display-optional)   
+- [MaaXBoard-RT-Demo](#maaxboard-rt-demo)
+- [Required Hardwares](#required-hardwares)
+  - [MaaXBoard-rt-board](#maaxboard-rt-board)
+  - [MCU-Link debug probe](#mcu-link-debug-probe)
+  - [MIPI DSI 7-INCH CAPACITIVE TOUCH DISPLAY (Optional)](#mipi-dsi-7-inch-capacitive-touch-display-optional)
+- [Cloning](#cloning)
+  - [Downloading the source code from GitHub](#downloading-the-source-code-from-github)
+  - [Importing the demo](#importing-the-demo)
+- [Mode of Operation](#mode-of-operation)
+  - [Console mode](#console-mode)
+  - [GUI mode](#gui-mode)
+  - [Supporting projects](#supporting-projects)
+- [Project Structure](#project-structure)
+- [Add new cli command](#add-new-cli-command)
+- [Reference](#reference)
+- [Issues](#issues)
 
 2. [Mode of Operation](#mode-of-operation)
     1. [Console mode](#console-mode)
@@ -29,7 +41,7 @@ This program demonstrates the basic functionality of MaaXBoard-RT board. It incl
 
 ## MaaXBoard-rt-board 
 
-[<img align="right" src="https://www.avnet.com/wps/wcm/connect/onesite/9aced99e-d2fb-4e1b-a2f3-f947086950dc/mxboard-RT-front-main.jpg?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_NA5A1I41L0ICD0ABNDMDDG0000-9aced99e-d2fb-4e1b-a2f3-f947086950dc-nvnImiU">](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/maaxboard/maaxboard-rt/)
+[<img align="right" src="./images/mxboard-RT-front-main.jpg">](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/maaxboard/maaxboard-rt/)
 - NXP i.MX RT1176 Processor
 - Arm Cortex-M7 @1GHz, 32KB/32KB L1 Cache
 - Arm Cortex-M4F @400MHz, 16KB/16KB L1 Cache
@@ -43,11 +55,29 @@ This program demonstrates the basic functionality of MaaXBoard-RT board. It incl
 
 ## MCU-Link debug probe
 
-[<img width="400" src="https://www.nxp.com/assets/images/en/dev-board-image/MCU-LINK-TOP.jpg">](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/maaxboard/maaxboard-rt/)
+[<img width="400" src="./images/MCU-LINK-TOP.jpg">](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/maaxboard/maaxboard-rt/)
 
 ## MIPI DSI 7-INCH CAPACITIVE TOUCH DISPLAY (Optional)
 
-[<img width="400" src="https://www.avnet.com/opasdata/d120001/derivates/2/072/242/815/Disp1_web.jpg">](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/maaxboard/maaxboard-rt/)
+[<img width="400" src="./images/Disp1_web.jpg">](https://www.avnet.com/wps/portal/us/products/avnet-boards/avnet-board-families/maaxboard/maaxboard-rt/)
+
+# Cloning
+## Downloading the source code from GitHub
+To simplify the porting of the source code into the MCUXpresso IDE, it is recommended to download the source code as a ZIP file and not cloning the project directly. 
+From the main repository page, click on the “Code” button and select “Download ZIP”. Locate the downloaded file which is to be used in the next steps.
+
+
+<img width="600" src="./images/GitHubDownload.png">
+
+
+## Importing the demo
+Once the MCUXpresso IDE and SDK are installed, import the GUI example demo zip file that was downloaded in the previous section into a new workspace by clicking on the “Import project(s) from file system link” on the “Quickstart Panel”.
+
+<img width="300" src="./images/Import1.png">
+
+Select the zip file to import from the file system by pressing the browse button and then press finish.
+
+<img width="300" src="./images/Import2.png">
 
 # Mode of Operation
 ## Console mode
