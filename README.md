@@ -79,6 +79,10 @@ Select the zip file to import from the file system by pressing the browse button
 
 <img width="300" src="./images/Import2.png">
 
+# Supported displays
+This demo will now support bothe the AES-ACC-MAAX-DISP1 and AES-ACC-MAAX-DISP2 displays.
+To switch to the AES-ACC-MAAX-DISP2 display, add a the "AES_ACC_MAAX_DISP2" preprocessor definition under project properties -> C/C++ Build -> Settings -> Tool Settings tab -> MCU C Compiler -> Preprocessor
+
 # Mode of Operation
 ## Console mode
 User with no MIPI 7-inch display can run the demo completely from console. MaaXBoard RT CLI use LPUART1 on J17 Debug UART 3 pin header.
