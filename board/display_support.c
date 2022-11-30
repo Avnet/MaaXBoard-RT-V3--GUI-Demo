@@ -48,7 +48,13 @@
 #define DEMO_VSW 2     // Vertical Sync Width
 #define DEMO_VFP 20    // Vertical Sync Front Porch
 #define DEMO_VBP 30    // Vertical Sync Back Porch (blanking)
-
+#elif (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)   // MaaXBoard-RT
+#define DEMO_HSW 2     // Horizontal Sync Width
+#define DEMO_HFP 30   // Horizontal Sync Front Porch
+#define DEMO_HBP 30    // Horizontal Sync Back Porch (blanking)
+#define DEMO_VSW 2     // Vertical Sync Width
+#define DEMO_VFP 11    // Vertical Sync Front Porch
+#define DEMO_VBP 25    // Vertical Sync Back Porch (blanking)
 #elif (DEMO_PANEL_RK055IQH091 == DEMO_PANEL)
 #define DEMO_HSW 2
 #define DEMO_HFP 32
@@ -137,7 +143,7 @@ static display_handle_t rm68200Handle = {
 };
 
 
-#elif (DEMO_PANEL == DEMO_PANEL_PH720128T003)  // MaaXBoard-RT
+#elif ((DEMO_PANEL == DEMO_PANEL_PH720128T003) || (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2))  // MaaXBoard-RT
 
 static mipi_dsi_device_t dsiDevice = {
     .virtualChannel = 0,
@@ -362,7 +368,7 @@ static status_t BOARD_InitLcdPanel(void)
 
 #if   (DEMO_PANEL == DEMO_PANEL_RK055AHD091)
     status = RM68200_Init(&rm68200Handle, &displayConfig);
-#elif (DEMO_PANEL == DEMO_PANEL_PH720128T003)  // MaaXBoard-RT
+#elif ((DEMO_PANEL == DEMO_PANEL_PH720128T003) || (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2))  // MaaXBoard-RT
     status = ILI9881C_Init(&ili9881cHandle, &displayConfig);
 #else
     status = RM68191_Init(&rm68191Handle, &displayConfig);

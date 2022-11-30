@@ -35,13 +35,18 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+/*! @brief GT911 I2C address. */
+#define GT911_I2C_ADDRESS0 (0x5D)
+#define GT911_I2C_ADDRESS1 (0x14)
+
 /*! @brief GT911 maximum number of simultaneously detected touches. */
 #define GT911_MAX_TOUCHES (10U)
 
 /*! @brief Error code definition. */
 enum _touch_status
 {
-    kStatus_TOUCHPANEL_NotTouched = MAKE_STATUS(kStatusGroup_TOUCH_PANEL, 0) /*!< No touch happen. */
+    kStatus_TOUCHPANEL_NotTouched = MAKE_STATUS(kStatusGroup_TOUCH_PANEL, 0), /*!< No touch happen. */
+	kStatus_TOUCHPANEL_Touched = MAKE_STATUS(kStatusGroup_TOUCH_PANEL, 1) /*!< touch happen. */
 };
 
 /*! @brief Touch point definition. */

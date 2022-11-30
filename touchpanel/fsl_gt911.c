@@ -10,10 +10,6 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-/*! @brief GT911 I2C address. */
-#define GT911_I2C_ADDRESS0 (0x5D)
-#define GT911_I2C_ADDRESS1 (0x14)
-
 #define GT911_REG_ADDR_SIZE 2
 
 /*! @brief GT911 registers. */
@@ -241,6 +237,7 @@ status_t GT911_GetSingleTouch(gt911_handle_t *handle, int *touch_x, int *touch_y
     {
         if (touchPointNum > 0U)
         {
+        	status = (status_t)kStatus_TOUCHPANEL_Touched;
             *touch_x =
                 (int)(uint16_t)((uint16_t)handle->pointReg[0].lowX + (((uint16_t)handle->pointReg[0].highX) << 8U));
             *touch_y =

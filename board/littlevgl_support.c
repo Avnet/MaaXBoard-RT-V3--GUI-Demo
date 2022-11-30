@@ -16,8 +16,11 @@
 #include "fsl_cache.h"
 #include "fsl_debug_console.h"
 
-//pf #include "fsl_gt911.h"
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
+#include "fsl_gt911.h"
+#else
 #include "fsl_ft5406_rt.h"
+#endif
 #include "avt-ili9881c.h"
 
 #if LV_USE_GPU && LV_USE_GPU_NXP_PXP
@@ -78,7 +81,9 @@ static void DEMO_BufferSwitchOffCallback(void *param, void *switchOffBuffer);
 
 static void BOARD_PullMIPIPanelTouchResetPin(bool pullUp);
 
-//pf static void BOARD_ConfigMIPIPanelTouchIntPin(gt911_int_pin_mode_t mode);
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
+static void BOARD_ConfigMIPIPanelTouchIntPin(gt911_int_pin_mode_t mode);
+#endif
 
 /*******************************************************************************
  * Variables
@@ -91,7 +96,8 @@ static SemaphoreHandle_t s_transferDone;
 static volatile bool s_transferDone;
 #endif
 
-/* static gt911_handle_t s_touchHandle;
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
+static gt911_handle_t s_touchHandle;
 
 static const gt911_config_t s_touchConfig = {
     .I2C_SendFunc     = BOARD_MIPIPanelTouch_I2C_Send,
@@ -100,13 +106,13 @@ static const gt911_config_t s_touchConfig = {
     .intPinFunc       = BOARD_ConfigMIPIPanelTouchIntPin,
     .timeDelayMsFunc  = VIDEO_DelayMs,
     .touchPointNum    = 1,
-    .i2cAddrMode      = kGT911_I2cAddrMode0,
+    .i2cAddrMode      = kGT911_I2cAddrAny,
     .intTrigMode      = kGT911_IntRisingEdge,
 };
-*/
-
-/* Touch driver handle */   //pf
+#else
+/* Touch driver handle */
 static ft5406_rt_handle_t touchHandle;
+#endif
 
 static int s_touchResolutionX = 720;  //pf
 static int s_touchResolutionY = 1280;
@@ -298,7 +304,7 @@ static void BOARD_PullMIPIPanelTouchResetPin(bool pullUp)
     }
 }
 
-/*
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
 static void BOARD_ConfigMIPIPanelTouchIntPin(gt911_int_pin_mode_t mode)
 {
     if (mode == kGT911_IntPinInput)
@@ -319,7 +325,7 @@ static void BOARD_ConfigMIPIPanelTouchIntPin(gt911_int_pin_mode_t mode)
         BOARD_MIPI_PANEL_TOUCH_INT_GPIO->GDIR |= (1UL << BOARD_MIPI_PANEL_TOUCH_INT_PIN);
     }
 }
-*/
+#endif
 
 /*Initialize your touchpad*/
 static void DEMO_InitTouch(void)
@@ -334,51 +340,78 @@ static void DEMO_InitTouch(void)
         .direction = kGPIO_DigitalInput, .outputLogic = 0, .interruptMode = kGPIO_NoIntmode};
     GPIO_PinInit(BOARD_MIPI_PANEL_TOUCH_INT_GPIO, BOARD_MIPI_PANEL_TOUCH_INT_PIN, &intPinConfig);
 
-    //pf status = GT911_Init(&s_touchHandle, &s_touchConfig);
-
-
-    status = FT5406_RT_Init(&touchHandle, &master_rtos_handle6);  //pf OK!
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
+    status = GT911_Init(&s_touchHandle, &s_touchConfig);
+#else
+    status = FT5406_RT_Init(&touchHandle, &master_rtos_handle6);
+#endif
 
     if (kStatus_Success != status)
     {
         PRINTF("Touch IC initialization failed\r\n");
-        assert(false);
     }
 
-    //pf  GT911_GetResolution(&s_touchHandle, &s_touchResolutionX, &s_touchResolutionY);
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
+    GT911_GetResolution(&s_touchHandle, &s_touchResolutionX, &s_touchResolutionY);
+#endif
 }
 
 /* Will be called by the library to read the touchpad */
-static bool DEMO_ReadMouse(lv_indev_drv_t *drv, lv_indev_data_t *data)
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
+static bool DEMO_ReadTouch(lv_indev_drv_t *drv, lv_indev_data_t *data)
 {
-	int x, y;
-	mouse_t mouse_instance;
+    static int touch_x = 0;
+    static int touch_y = 0;
 
-	read_mouseState(&mouse_instance);
-    /*Set the last pressed coordinates*/
-    data->point.x = mouse_instance.x;
-    data->point.y = mouse_instance.y;
-    if (mouse_instance.btn&(1<<0)) // left btn clicked
-    {
-    	data->state = LV_INDEV_STATE_PR;
-    }
-    else
-    {
-    	data->state = LV_INDEV_STATE_REL;
-    }
+	if (GT911_GetSingleTouch(&s_touchHandle, &touch_x, &touch_y) == kStatus_TOUCHPANEL_Touched)
+	{
+		data->state = LV_INDEV_STATE_PR;
+	    /*Set the last pressed coordinates*/
+#ifdef AVT_DISPALY_ROTATE_180
+	    data->point.x = 720 - touch_x * DEMO_PANEL_WIDTH / s_touchResolutionX;
+	    data->point.y = 1280 - touch_y * DEMO_PANEL_HEIGHT / s_touchResolutionY;
+#else
+	    data->point.x = touch_x * DEMO_PANEL_WIDTH / s_touchResolutionX;
+	    data->point.y = touch_y * DEMO_PANEL_HEIGHT / s_touchResolutionY;
+#endif
+	    PRINTF("x:%d-y%d\r\n",data->point.x, data->point.y);
+	}
+	else{
+		data->state = LV_INDEV_STATE_REL;
+	}
+
     /*Return `false` because we are not buffering and no more data to read*/
     return false;
 }
 
+static bool touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
+{
+    static int touch_x = 0;
+    static int touch_y = 0;
 
-/* Will be called by the library to read the touchpad */
+	if (GT911_GetSingleTouch(&s_touchHandle, &touch_x, &touch_y) == kStatus_TOUCHPANEL_Touched)
+	{
+		data->state = LV_INDEV_STATE_PR;
+	}
+	else{
+		data->state = LV_INDEV_STATE_REL;
+	}
+
+    /*Return `false` because we are not buffering and no more data to read*/
+
+    /*Set the last pressed coordinates*/
+    data->point.x = touch_y;
+    data->point.y = touch_x;
+    return false;
+}
+#else
+
 static bool DEMO_ReadTouch(lv_indev_drv_t *drv, lv_indev_data_t *data)
 {
 	static touch_event_t touch_event;
     static int touch_x = 0;
     static int touch_y = 0;
 
- //pf   if (kStatus_Success == GT911_GetSingleTouch(&s_touchHandle, &touch_x, &touch_y))
     if (kStatus_Success == FT5406_RT_GetSingleTouch(&touchHandle, &touch_event, &touch_x, &touch_y))  //pf OK!
     {
         if ((touch_event == kTouch_Down) || (touch_event == kTouch_Contact))
@@ -408,32 +441,6 @@ static bool DEMO_ReadTouch(lv_indev_drv_t *drv, lv_indev_data_t *data)
     /*Return `false` because we are not buffering and no more data to read*/
     return false;
 }
-
-
-/*
-int BOARD_Touch_Poll(void)
-{
-    touch_event_t touch_event;
-    int touch_x;
-    int touch_y;
-    GUI_PID_STATE pid_state;
-
-    if (kStatus_Success != FT5406_RT_GetSingleTouch(&touchHandle, &touch_event, &touch_x, &touch_y))
-    {
-        return 0;
-    }
-    else if (touch_event != kTouch_Reserved)
-    {
-        pid_state.x = touch_y;
-        pid_state.y = touch_x;
-        pid_state.Pressed = ((touch_event == kTouch_Down) || (touch_event == kTouch_Contact));
-        pid_state.Layer = 0;
-        GUI_TOUCH_StoreStateEx(&pid_state);
-        return 1;
-    }
-    return 0;
-}
-*/
 
 static bool touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 {
@@ -465,6 +472,8 @@ static bool touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
     /*Return `false` because we are not buffering and no more data to read*/
     return false;
 }
+#endif
+
 
 /*!
  * @brief detect display if display is connected. 1 - true, 0 - false
@@ -472,8 +481,18 @@ static bool touchpad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 uint8_t detect_display()
 {
 	uint8_t rxBuff;	/* dummy byte to read */
+
 	BOARD_LPI2C_Init(BOARD_MIPI_PANEL_TOUCH_I2C_BASEADDR, (CLOCK_GetFreq(kCLOCK_OscRc48MDiv2)));
+
+	/* delay for some time to complete init*/
+	SDK_DelayAtLeastUs(10000, CLOCK_GetFreq(kCLOCK_CpuClk));
+
+#if (DEMO_PANEL == DEMO_PANEL_AES_ACC_MAAX_DISP2)
+	if ((BOARD_LPI2C_Receive(BOARD_MIPI_PANEL_TOUCH_I2C_BASEADDR, GT911_I2C_ADDRESS0, 0, 0, &rxBuff, 1) != kStatus_LPI2C_Nak) ||
+		(BOARD_LPI2C_Receive(BOARD_MIPI_PANEL_TOUCH_I2C_BASEADDR, GT911_I2C_ADDRESS1, 0, 0, &rxBuff, 1) != kStatus_LPI2C_Nak))
+#else
 	if (BOARD_LPI2C_Receive(BOARD_MIPI_PANEL_TOUCH_I2C_BASEADDR, FT5406_RT_I2C_ADDRESS, 0, 0, &rxBuff, 1) != kStatus_LPI2C_Nak)
+#endif
 	{
 		return 1;
 	}
@@ -483,3 +502,24 @@ uint8_t detect_display()
 	}
 }
 
+/* Will be called by the library to read the touchpad */
+static bool DEMO_ReadMouse(lv_indev_drv_t *drv, lv_indev_data_t *data)
+{
+	int x, y;
+	mouse_t mouse_instance;
+
+	read_mouseState(&mouse_instance);
+    /*Set the last pressed coordinates*/
+    data->point.x = mouse_instance.x;
+    data->point.y = mouse_instance.y;
+    if (mouse_instance.btn&(1<<0)) // left btn clicked
+    {
+    	data->state = LV_INDEV_STATE_PR;
+    }
+    else
+    {
+    	data->state = LV_INDEV_STATE_REL;
+    }
+    /*Return `false` because we are not buffering and no more data to read*/
+    return false;
+}
