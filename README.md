@@ -22,6 +22,7 @@ This program demonstrates the basic functionality of MaaXBoard-RT board. It incl
 - [Cloning](#cloning)
   - [Downloading the source code from GitHub](#downloading-the-source-code-from-github)
   - [Importing the demo](#importing-the-demo)
+  - [Supported displays](#Supported-displays)
 - [Mode of Operation](#mode-of-operation)
   - [Console mode](#console-mode)
   - [GUI mode](#gui-mode)
